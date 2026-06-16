@@ -2,79 +2,144 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { useRef } from "react"
+import { useRef, useState, useEffect } from "react"
 import { Reveal, SectionHeading } from "./reveal"
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
 
-const strapiBaseUrl = process.env.NEXT_PUBLIC_STRAPI_URL
+const CONTENT_DICTIONARY: Record<
+  string,
+  {
+    badge: string
+    title: string
+    description: string
+  }
+> = {
+  id: {
+    badge: "KATEGORI PRODUK",
+    title: "Solusi Industrial Terintegrasi",
+    description:
+      "Pilih kategori segmen produk untuk melihat katalog spesifikasi terbaik kami.",
+  },
 
-interface StrapiImage {
-  id: number
-  url: string
-  alternativeText?: string | null
+  en: {
+    badge: "PRODUCT CATEGORIES",
+    title: "Integrated Industrial Solutions",
+    description:
+      "Select a product segment category to view our top specification catalogs.",
+  },
+
+  "zh-Hans": {
+    badge: "产品类别",
+    title: "一体化工业解决方案",
+    description:
+      "选择核心产品细分类别，即可查看我们顶级的工业规格型录。",
+  },
 }
 
-interface CategoryComponentData {
-  id: number
-  name: string
+interface Category {
   slug: string
-  description?: string
-  image?: StrapiImage 
+  name: string
+  image_url?: string
 }
 
 interface ProductSectionProps {
-  data?: {
-    badge?: string
-    title?: string
-    description?: string
-    categories?: CategoryComponentData[]
-  }
   locale?: string
 }
 
-export function ProductSection({ data, locale = "id" }: ProductSectionProps) {
+export function ProductSection({
+  locale = "id",
+}: ProductSectionProps) {
   const sliderRef = useRef<HTMLDivElement>(null)
 
-  if (!data) return null
-  const displayCategories = data.categories || []
+  const [isMounted, setIsMounted] = useState(false)
+  const [categories, setCategories] = useState<Category[]>([])
 
-  // Fungsi navigasi tombol slide
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/categories`,
+          {
+            headers: {
+              "X-Locale": locale,
+            },
+            cache: "no-store",
+          }
+        )
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch categories")
+        }
+
+        const data = await res.json()
+        setCategories(data)
+      } catch (error) {
+        console.error("Gagal memuat kategori:", error)
+      }
+    }
+
+    fetchCategories()
+  }, [locale])
+
+  const currentContent =
+    CONTENT_DICTIONARY[locale] || CONTENT_DICTIONARY.id
+
   const scroll = (direction: "left" | "right") => {
     if (sliderRef.current) {
       const { scrollLeft, clientWidth } = sliderRef.current
-      const scrollTo = direction === "left" ? scrollLeft - clientWidth / 2 : scrollLeft + clientWidth / 2
-      sliderRef.current.scrollTo({ left: scrollTo, behavior: "smooth" })
+
+      const scrollTo =
+        direction === "left"
+          ? scrollLeft - clientWidth / 2
+          : scrollLeft + clientWidth / 2
+
+      sliderRef.current.scrollTo({
+        left: scrollTo,
+        behavior: "smooth",
+      })
     }
   }
 
+  if (!isMounted) {
+    return (
+      <section
+        id="products"
+        className="bg-slate-50 py-24"
+      />
+    )
+  }
+
   return (
-    <section id="products" className="relative bg-slate-50 py-24 overflow-hidden">
+    <section
+      id="products"
+      className="relative overflow-hidden bg-slate-50 py-24"
+    >
       <div className="mx-auto max-w-7xl px-6">
-        
-        {/* Header Utama dengan Tombol Navigasi Slide */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between">
           <div className="flex-1">
             <SectionHeading
-              eyebrow={data.badge || "Kategori Produk"}
-              title={data.title || "Solusi Industrial Terintegrasi"}
-              subtitle={data.description || "Pilih kategori segmen produk untuk melihat katalog spesifikasi."}
+              eyebrow={currentContent.badge}
+              title={currentContent.title}
+              subtitle={currentContent.description}
             />
           </div>
-          
-          {/* Tombol Navigasi Slider */}
-          {displayCategories.length > 3 && (
+
+          {categories.length > 3 && (
             <div className="mt-6 flex gap-2 md:mt-0">
               <button
                 onClick={() => scroll("left")}
-                className="flex size-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition-all hover:bg-amber-400 hover:text-[#0c1a30] hover:border-amber-400"
-                aria-label="Previous Slide"
+                className="flex size-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition-all hover:border-amber-400 hover:bg-amber-400 hover:text-[#0c1a30]"
               >
                 <ChevronLeft className="size-5" />
               </button>
+
               <button
                 onClick={() => scroll("right")}
-                className="flex size-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition-all hover:bg-amber-400 hover:text-[#0c1a30] hover:border-amber-400"
-                aria-label="Next Slide"
+                className="flex size-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition-all hover:border-amber-400 hover:bg-amber-400 hover:text-[#0c1a30]"
               >
                 <ChevronRight className="size-5" />
               </button>
@@ -82,58 +147,54 @@ export function ProductSection({ data, locale = "id" }: ProductSectionProps) {
           )}
         </div>
 
-        {/* Container Slide Memanjang (Horizontal Slider) */}
         <div
           ref={sliderRef}
-          className="no-scrollbar mt-14 flex gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory"
+          className="no-scrollbar mt-14 flex snap-x snap-mandatory gap-6 overflow-x-auto pb-6 pt-2"
           style={{ scrollbarWidth: "none" }}
         >
-          {displayCategories.map((cat, i) => {
+          {categories.map((cat, i) => {
             const targetHref = `/${locale}/products/${cat.slug}`
-            
-            // Perbaikan mapping URL Single Media Strapi
-            const rawUrl = cat.image?.url
-            const categoryImg = rawUrl 
-              ? (rawUrl.startsWith("http") ? rawUrl : `${strapiBaseUrl}${rawUrl}`)
+
+            const imageUrl = cat.image_url
+              ? `${process.env.NEXT_PUBLIC_API_URL}/storage/${cat.image_url}`
               : "/images/category_placeholder.png"
 
             return (
-              <div 
-                key={cat.id || cat.slug} 
-                className="w-[85vw] sm:w-[45vw] lg:w-[31%] flex-shrink-0 snap-start"
+              <div
+                key={cat.slug}
+                className="w-[85vw] flex-shrink-0 snap-start sm:w-[45vw] lg:w-[31%]"
               >
                 <Reveal delay={i * 0.05}>
-                  <Link 
+                  <Link
                     href={targetHref}
-                    className="group flex flex-col justify-between h-[420px] overflow-hidden rounded-2xl border border-slate-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-md hover:border-amber-300"
+                    className="group flex h-[340px] flex-col justify-between overflow-hidden rounded-2xl border border-slate-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-amber-300 hover:shadow-md"
                   >
                     <div>
-                      {/* Wadah Gambar Kategori */}
                       <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl bg-slate-100">
                         <Image
-                          src={categoryImg}
+                          src={cat.image_url || "/images/category_placeholder.png"}
                           alt={cat.name}
                           fill
-                          sizes="(max-w-7xl) 33vw"
-                          className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
                           unoptimized
+                          sizes="(max-width: 1024px) 100vw, 33vw"
+                          className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
                         />
                       </div>
 
-                      {/* Judul Kategori */}
-                      <h3 className="mt-5 font-heading text-lg font-bold text-slate-900 group-hover:text-amber-600 transition-colors">
+                      <h3 className="mt-5 font-heading text-lg font-bold text-slate-900 transition-colors group-hover:text-amber-600">
                         {cat.name}
                       </h3>
-                      
-                      {/* Deskripsi Kategori */}
-                      <p className="mt-2 text-sm leading-relaxed text-slate-500 line-clamp-3">
-                        {cat.description || "Jelajahi spesifikasi dan katalog produk industrial terbaik kami."}
-                      </p>
                     </div>
 
-                    {/* Tautan Aksi */}
-                    <div className="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between text-xs font-bold uppercase tracking-wider text-amber-600 group-hover:text-amber-700">
-                      <span>Jelajahi Produk</span>
+                    <div className="mt-auto flex items-center justify-between border-t border-slate-50 pt-4 text-xs font-bold uppercase tracking-wider text-amber-600 group-hover:text-amber-700">
+                      <span>
+                        {locale === "id"
+                          ? "Jelajahi Produk"
+                          : locale === "zh-Hans"
+                          ? "浏览产品"
+                          : "Explore Products"}
+                      </span>
+
                       <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
                     </div>
                   </Link>
@@ -142,7 +203,6 @@ export function ProductSection({ data, locale = "id" }: ProductSectionProps) {
             )
           })}
         </div>
-
       </div>
     </section>
   )

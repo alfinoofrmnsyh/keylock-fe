@@ -65,43 +65,7 @@ export async function generateStaticParams() {
   return [{ locale: 'id' }, { locale: 'en' }, { locale: 'zh-Hans' }]
 }
 
-// 5. Fungsi Fetching Data Komponen Footer Utama dari Strapi CMS
-async function getHomepageFooterData(locale: string) {
-  let strapiLocale = "id"
-  if (locale === "zh-Hans" || locale.startsWith("zh")) {
-    strapiLocale = "zh-Hans"
-  } else if (locale.startsWith("en")) {
-    strapiLocale = "en"
-  }
-
-  try {
-    // Memanggil skema populate footer_section sesuai konfigurasi database Strapi kamu
-    const strapiBaseUrl = process.env.NEXT_PUBLIC_STRAPI_URL
-    const res = await fetch(
-      `${strapiBaseUrl}/api/homepage?locale=${strapiLocale}&populate[footer_section]=*`,
-      { 
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-        next: { revalidate: 0 } // Menonaktifkan cache agresif agar sinkronisasi CMS instan
-      }
-    )
-
-    if (!res.ok) {
-      console.error(`Gagal memuat API global footer. Status: ${res.status}`)
-      return null
-    }
-
-    const response = await res.json()
-    
-    // Fallback ekstraksi objek data komponen (Mendukung Strapi v4 & v5)
-    return response?.data?.footer_section || response?.data?.attributes?.footer_section || null
-  } catch (error) {
-    console.error("Koneksi gagal ke API Strapi footer_section:", error)
-    return null
-  }
-}
-
-// 6. Komponen Layout Utama (RootLayout)
+// 5. Komponen Layout Utama (RootLayout)
 export default async function RootLayout({
   children,
   params,
@@ -110,9 +74,6 @@ export default async function RootLayout({
   params: Promise<{ locale: string }>
 }>) {
   const { locale } = await params
-  
-  // Mengambil data footer dari server sebelum merender komponen halaman
-  const footerStrapiData = await getHomepageFooterData(locale || 'id')
 
   return (
     <html
@@ -125,13 +86,13 @@ export default async function RootLayout({
         <Navbar locale={locale || 'id'} />
         
         {/* MAIN CONTAINER CONTENT */}
-        {/* Kelas 'flex-grow' memastikan jika konten halaman pendek (seperti error/loading), footer tetap tertahan di paling bawah layar */}
         <main className="w-full flex-grow">
           {children}
         </main>
         
-        {/* FOOTER GLOBAL (Menerima Aliran Data Dinamis Strapi) */}
-        <Footer locale={locale || 'id'} data={footerStrapiData} />
+        {/* FOOTER GLOBAL */}
+        {/* Properti `data` dihapus karena Footer akan membaca kamus datanya sendiri secara statis */}
+        <Footer locale={locale || 'id'} />
         
         {/* VERCEL ANALYTICS */}
         {process.env.NODE_ENV === 'production' && <Analytics />}

@@ -4,158 +4,152 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Truck, MapPin, Phone, Mail, MessageCircle, Globe, Send, Share2 } from "lucide-react"
 
-// Teks navigasi lokal (Hanya untuk Layanan & Produk sesuai permintaan)
-// Catatan: Target anchor disesuaikan ke id spesifiknya (#services & #products) agar scroll mendarat tepat sasaran
-const TRANSLATED_NAVIGATION = {
-  id: [
-    {
-      title: "Layanan",
-      links: [
-        { label: "Jual Forklift", url: "#services" },
-        { label: "Sewa Forklift", url: "#services" },
-        { label: "Rak Gudang Racking", url: "#services" },
-        { label: "Material Handling", url: "#services" },
-      ],
-    },
-    {
-      title: "Produk",
-      links: [
-        { label: "Electric Forklift", url: "#products" },
-        { label: "Reach Truck", url: "#products" },
-        { label: "Hand Pallet", url: "#products" },
-        { label: "Pallet Plastik", url: "#products" },
-        { label: "Warehouse Rack", url: "#products" },
-      ],
-    },
-  ],
-  en: [
-    {
-      title: "Services",
-      links: [
-        { label: "Forklift Sales", url: "#services" },
-        { label: "Forklift Rental", url: "#services" },
-        { label: "Warehouse Racking", url: "#services" },
-        { label: "Material Handling", url: "#services" },
-      ],
-    },
-    {
-      title: "Products",
-      links: [
-        { label: "Electric Forklift", url: "#products" },
-        { label: "Reach Truck", url: "#products" },
-        { label: "Hand Pallet", url: "#products" },
-        { label: "Plastic Pallet", url: "#products" },
-        { label: "Warehouse Rack", url: "#products" },
-      ],
-    },
-  ],
-  zh: [
-    {
-      title: "核心服务",
-      links: [
-        { label: "叉车销售", url: "#services" },
-        { label: "叉车租赁", url: "#services" },
-        { label: "仓储货架系统", url: "#services" },
-        { label: "物料搬运设备", url: "#services" },
-      ],
-    },
-    {
-      title: "主要产品",
-      links: [
-        { label: "电动叉车", url: "#products" },
-        { label: "前移式叉车", url: "#products" },
-        { label: "手动搬运车", url: "#products" },
-        { label: "塑料托盘", url: "#products" },
-        { label: "重型仓储货架", url: "#products" },
-      ],
-    },
-  ],
+const COMMON_CONFIG = {
+  address: "Jl. Arteri KIIC Rolling Hills Ruko Pacifik Plaza No. 91, Margakaya, Kec. Telukjambe Barat, Karawang, Jawa Barat 41361",
+  phone: "+62 812 3456 7890",
+  email: "info@keylockindonesia.com",
+  whatsapp_number: "6285173013525",
+  google_maps_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.3055732178386!2d107.264135374785!3d-6.354474862166041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e699d800f0c8e61%3A0x6bf0f30e04f4ef5e!2sPT%20KEY%20LOCK%20INDONESIA!5e0!3m2!1sid!2sid!4v1781268373774!5m2!1sid!2sid" // Ganti dengan embed URL maps resmi Anda
+}
+
+const CONTENT_DICTIONARY: Record<string, { description: string; contactTitle: string; waLabel: string; copyright: string; keywords: string; navigation: any[] }> = {
+  id: {
+    description: "Solusi Logistik Terpadu: Penyedia terpercaya untuk penjualan & sewa forklift, sistem rak gudang (racking), palet plastik, serta peralatan material handling premium di Indonesia.",
+    contactTitle: "Kontak Kami",
+    waLabel: "Hubungi via WhatsApp",
+    copyright: "Keylock Indonesia. Hak Cipta Dilindungi.",
+    keywords: "Karawang Forklift · Bekasi Forklift Rental · Warehouse Racking · Plastic Pallet",
+    navigation: [
+      {
+        title: "Layanan",
+        links: [
+          { label: "Jual Forklift", url: "#services" },
+          { label: "Sewa Forklift", url: "#services" },
+          { label: "Rak Gudang Racking", url: "#services" },
+          { label: "Material Handling", url: "#services" },
+        ],
+      },
+      {
+        title: "Produk",
+        links: [
+          { label: "Electric Forklift", url: "#products" },
+          { label: "Reach Truck", url: "#products" },
+          { label: "Hand Pallet", url: "#products" },
+          { label: "Pallet Plastik", url: "#products" },
+          { label: "Warehouse Rack", url: "#products" },
+        ],
+      },
+    ]
+  },
+  en: {
+    description: "Integrated Logistics Solutions: A trusted industrial provider for forklift sales & rentals, high-density warehouse racking systems, plastic pallets, and premium material handling equipment in Indonesia.",
+    contactTitle: "Contact Us",
+    waLabel: "Chat via WhatsApp",
+    copyright: "Keylock Indonesia. All Rights Reserved.",
+    keywords: "Karawang Forklift · Bekasi Forklift Rental · Warehouse Racking · Plastic Pallet",
+    navigation: [
+      {
+        title: "Services",
+        links: [
+          { label: "Forklift Sales", url: "#services" },
+          { label: "Forklift Rental", url: "#services" },
+          { label: "Warehouse Racking", url: "#services" },
+          { label: "Material Handling", url: "#services" },
+        ],
+      },
+      {
+        title: "Products",
+        links: [
+          { label: "Electric Forklift", url: "#products" },
+          { label: "Reach Truck", url: "#products" },
+          { label: "Hand Pallet", url: "#products" },
+          { label: "Plastic Pallet", url: "#products" },
+          { label: "Warehouse Rack", url: "#products" },
+        ],
+      },
+    ]
+  },
+  "zh-Hans": {
+    description: "一体化物流仓储解决方案：印度尼西亚备受 square 信赖的重型叉车销售与租赁、高密度仓储货架系统、塑料托盘及高端工业物料搬运设备一站式供应商。",
+    contactTitle: "联系我们",
+    waLabel: "通过 WhatsApp 在线咨询",
+    copyright: "Keylock Indonesia. 保留所有权利。",
+    keywords: "印尼叉车租赁 · 仓储货架系统 · 塑料托盘制造 · 物料搬运设备",
+    navigation: [
+      {
+        title: "核心服务",
+        links: [
+          { label: "叉车销售业务", url: "#services" },
+          { label: "叉车短期租赁", url: "#services" },
+          { label: "重型仓储货架", url: "#services" },
+          { label: "工业搬运设备", url: "#services" },
+        ],
+      },
+      {
+        title: "核心产品",
+        links: [
+          { label: "全电动叉车", url: "#products" },
+          { label: "前移式高位车", url: "#products" },
+          { label: "手动液压车", url: "#products" },
+          { label: "工业塑料托盘", url: "#products" },
+          { label: "智能立体货架", url: "#products" },
+        ],
+      },
+    ]
+  }
 }
 
 interface FooterProps {
-  data?: {
-    description?: string
-    address?: string
-    phone?: string
-    email?: string
-    whatsapp_number?: string
-    whatsapp_label?: string
-    google_maps_url?: string
-    copyright_text?: string
-    keywords_text?: string
-  }
   locale?: string
 }
 
-export function Footer({ data, locale = "id" }: FooterProps) {
+export function Footer({ locale = "id" }: FooterProps) {
   const currentYear = new Date().getFullYear()
   const pathname = usePathname()
 
-  const activeLocale = locale.startsWith("zh") ? "zh" : locale.startsWith("en") ? "en" : "id"
-
-  // Logika mendeteksi apakah pengguna saat ini sedang berada di halaman Beranda/Homepage
+  const currentContent = CONTENT_DICTIONARY[locale] || CONTENT_DICTIONARY["id"]
   const isAtHomepage = pathname === `/${locale}` || pathname === `/${locale}/`
 
-  // Ambil data menu berdasarkan bahasa hasil normalisasi
-  const navigationColumns = TRANSLATED_NAVIGATION[activeLocale as keyof typeof TRANSLATED_NAVIGATION] || TRANSLATED_NAVIGATION.id
-
-  // Label judul kontak dinamis berdasarkan bahasa aktif
-  const contactTitle = activeLocale === "zh" ? "联系我们" : activeLocale === "en" ? "Contact Us" : "Kontak"
-
-  // Bersihkan string nomor WhatsApp agar hanya tersisa angka untuk URL wa.me
-  const cleanWaNumber = data?.whatsapp_number ? data.whatsapp_number.replace(/[^0-9]/g, "") : ""
-
   return (
-    <footer className="bg-[#0a1424] text-slate-300">
+    <footer className="bg-[#0a1424] text-slate-300 border-t border-white/5">
       <div className="mx-auto max-w-7xl px-6 py-16">
-        <div className="grid gap-10 lg:grid-cols-4">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           
-          {/* Company Profile */}
-          <div>
+          {/* Komponen Profil Perusahaan */}
+          <div className="flex flex-col gap-4">
             <div className="flex items-center gap-2 text-white">
-              <span className="flex size-9 items-center justify-center rounded-lg bg-amber-400 text-navy">
-                <Truck className="size-5" />
-              </span>
+              <img src="/images/logo.png" alt="Key Lock ID" className="h-5.5 w-auto" />
               <span className="font-heading text-lg font-bold">
-                Keylock<span className="text-amber-400"> ID</span>
+                Keylock<span className="text-amber-400"> Indonesia</span>
               </span>
             </div>
-            {data?.description && (
-              <p className="mt-4 text-sm leading-relaxed text-slate-400">
-                {data.description}
-              </p>
-            )}
-            <div className="mt-5 flex gap-3">
+            <p className="text-sm leading-relaxed text-slate-400 text-justify">
+              {currentContent.description}
+            </p>
+            <div className="mt-2 flex gap-3">
               {[Globe, Send, Share2].map((Icon, i) => (
                 <a
                   key={i}
                   href="#"
                   className="flex size-9 items-center justify-center rounded-lg bg-white/5 text-slate-300 transition-colors hover:bg-amber-400 hover:text-navy"
-                  aria-label="Social link"
+                  aria-label="Social Link"
                 >
-                  <span className="sr-only">Social Link</span>
                   <Icon className="size-4" />
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Localized Navigation Columns with Smart Routing Integration */}
-          {navigationColumns.map((col) => (
-            <div key={col.title}>
+          {/* Kolom Navigasi Dinamis Berdasarkan Bahasa */}
+          {currentContent.navigation.map((col) => (
+            <div key={col.title} className="lg:pl-6">
               <h4 className="font-heading text-sm font-semibold uppercase tracking-wider text-white">
                 {col.title}
               </h4>
               <ul className="mt-4 space-y-2.5">
-                {col.links.map((link) => {
+                {col.links.map((link: any) => {
                   const isAnchor = link.url.startsWith("#")
-                  
-                  // LOGIKA SMART ROUTING:
-                  // Jika berupa anchor link (#) dan user sedang berada di LUAR homepage (misal: /about),
-                  // paksa rute mengarah ke halaman utama bahasa terkait terlebih dahulu (cth: /zh-Hans#services)
-                  const finalHref = isAnchor && !isAtHomepage 
-                    ? `/${locale}${link.url}` 
-                    : link.url
+                  const finalHref = isAnchor && !isAtHomepage ? `/${locale}${link.url}` : link.url
 
                   return (
                     <li key={link.label}>
@@ -172,51 +166,45 @@ export function Footer({ data, locale = "id" }: FooterProps) {
             </div>
           ))}
 
-          {/* Contact Info */}
+          {/* Informasi Kontak Perusahaan */}
           <div>
             <h4 className="font-heading text-sm font-semibold uppercase tracking-wider text-white">
-              {contactTitle}
+              {currentContent.contactTitle}
             </h4>
             <ul className="mt-4 space-y-3 text-sm text-slate-400">
-              {data?.address && (
-                <li className="flex gap-2.5">
-                  <MapPin className="size-4 shrink-0 text-amber-400 mt-0.5" />
-                  {data.address}
-                </li>
-              )}
-              {data?.phone && (
-                <li className="flex gap-2.5">
-                  <Phone className="size-4 shrink-0 text-amber-400" />
-                  <a href={`tel:${data.phone}`} className="hover:text-white transition-colors">{data.phone}</a>
-                </li>
-              )}
-              {data?.email && (
-                <li className="flex gap-2.5">
-                  <Mail className="size-4 shrink-0 text-amber-400" />
-                  <a href={`mailto:${data.email}`} className="hover:text-white transition-colors">{data.email}</a>
-                </li>
-              )}
+              <li className="flex gap-2.5 text-justify">
+                <MapPin className="size-4 shrink-0 text-amber-400 mt-0.5" />
+                {COMMON_CONFIG.address}
+              </li>
+              <li className="flex gap-2.5 items-center">
+                <Phone className="size-4 shrink-0 text-amber-400" />
+                <a href={`tel:${COMMON_CONFIG.phone}`} className="hover:text-white transition-colors">{COMMON_CONFIG.phone}</a>
+              </li>
+              <li className="flex gap-2.5 items-center">
+                <Mail className="size-4 shrink-0 text-amber-400" />
+                <a href={`mailto:${COMMON_CONFIG.email}`} className="hover:text-white transition-colors">{COMMON_CONFIG.email}</a>
+              </li>
             </ul>
             
-            {cleanWaNumber && (
+            <div className="mt-5">
               <a
-                href={`https://wa.me/${cleanWaNumber}`}
+                href={`https://wa.me/${COMMON_CONFIG.whatsapp_number}`}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-4 inline-flex items-center gap-2 rounded-lg bg-emerald-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-emerald-400"
+                className="inline-flex items-center gap-2 rounded-lg bg-emerald-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-emerald-400"
               >
-                <MessageCircle className="size-4" /> {data?.whatsapp_label || "WhatsApp"}
+                <MessageCircle className="size-4" /> {currentContent.waLabel}
               </a>
-            )}
+            </div>
           </div>
         </div>
 
-        {/* Google Maps View */}
-        {data?.google_maps_url && (
+        {/* Peta Google Maps Tersemat */}
+        {COMMON_CONFIG.google_maps_url && (
           <div className="mt-12 overflow-hidden rounded-2xl border border-white/10">
             <iframe
-              title="Lokasi Kantor"
-              src={data.google_maps_url}
+              title="Lokasi Kantor Keylock"
+              src={COMMON_CONFIG.google_maps_url}
               className="h-64 w-full border-0"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
@@ -225,11 +213,11 @@ export function Footer({ data, locale = "id" }: FooterProps) {
         )}
       </div>
 
-      {/* Bottom Copyright Bar */}
-      <div className="border-t border-white/10 py-6">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-6 text-xs text-slate-500 sm:flex-row">
-          <p>© {currentYear} {data?.copyright_text || "Keylock Indonesia. All Rights Reserved."}</p>
-          {data?.keywords_text && <p className="text-slate-600 tracking-wide text-center sm:text-right">{data.keywords_text}</p>}
+      {/* Bar Hak Cipta & Hak Paten */}
+      <div className="border-t border-white/5 py-6 bg-[#070e1a]">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 text-xs text-slate-500 sm:flex-row">
+          <p>© {currentYear} {currentContent.copyright}</p>
+          <p className="text-slate-600 tracking-wide text-center sm:text-right font-medium">{currentContent.keywords}</p>
         </div>
       </div>
     </footer>
