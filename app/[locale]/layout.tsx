@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata } from 'next'
 import { Inter, Poppins, Montserrat, Geist_Mono } from 'next/font/google'
+import Script from 'next/script' // <-- 1. Import komponen Script bawaan Next.js
 import '../globals.css'
 import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
@@ -80,6 +81,22 @@ export default async function RootLayout({
       lang={locale || 'id'}
       className={`${inter.variable} ${poppins.variable} ${montserrat.variable} ${geistMono.variable} bg-background`}
     >
+      <head>
+        {/* 2. Google tag (gtag.js) - Di-load secara asinkron setelah halaman interaktif */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-18247175856"
+          strategy="afterInteractive"
+        />
+        <Script id="google-ads-tag" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'AW-18247175856');
+          `}
+        </Script>
+      </head>
       <body className="font-sans antialiased text-slate-900 bg-white flex flex-col min-h-screen">
         
         {/* HEADER / NAVBAR GLOBAL */}
@@ -91,7 +108,6 @@ export default async function RootLayout({
         </main>
         
         {/* FOOTER GLOBAL */}
-        {/* Properti `data` dihapus karena Footer akan membaca kamus datanya sendiri secara statis */}
         <Footer locale={locale || 'id'} />
         
         {/* VERCEL ANALYTICS */}
