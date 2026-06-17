@@ -15,39 +15,39 @@ const HARDCODED_PROCESS_ICONS = [
 
 const CONTENT_DICTIONARY: Record<string, { badge: string; title: string; subtitle: string; steps: any[] }> = {
   id: {
-    badge: "ALUR KERJA",
-    title: "Proses Kerja Kami",
-    subtitle: "Tahapan terstruktur dari konsultasi awal hingga pemeliharaan sistem jangka panjang.",
+    badge: "ALUR KERJA KAMI",
+    title: "Tahapan Terstruktur Menuju Efisiensi Logistik",
+    subtitle: "Mulai dari diskusi awal hingga jaminan perawatan jangka panjang, setiap proses dirancang secara terukur untuk kelancaran operasional Anda.",
     steps: [
-      { id: 1, title: "Konsultasi Kebutuhan", description: "Diskusi mendalam mengenai tipe penguncian dan kebutuhan spesifik armada gudang Anda." },
-      { id: 2, title: "Survei Lokasi Gratis", description: "Tim teknis melakukan analisis fisik lapangan untuk pemetaan instalasi komponen optimal." },
-      { id: 3, title: "Rekomendasi Solusi", description: "Penyusunan rancangan proposal penawaran spesifikasi produk perlindungan terbaik." },
-      { id: 4, title: "Instalasi & Uji Layak", description: "Pemasangan unit oleh teknisi ahli diikuti pengujian fungsionalitas sistem menyeluruh." },
-      { id: 5, title: "Jaminan Pemeliharaan", description: "Layanan purnajual komprehensif untuk memastikan seluruh instrumen beroperasi prima." }
+      { id: 1, title: "Konsultasi Kebutuhan", description: "Diskusi mendalam untuk memahami jenis komoditas, volume alur material, dan target efisiensi gudang Anda." },
+      { id: 2, title: "Survei Lokasi Gratis", description: "Inspeksi langsung ke fasilitas Anda untuk mengukur tata letak secara presisi dan memetakan jalur manuver." },
+      { id: 3, title: "Rekomendasi Solusi", description: "Formulasi spesifikasi armada yang tepat beserta perencanaan tata letak kustom yang memaksimalkan kapasitas ruang." },
+      { id: 4, title: "Instalasi & Komisioning", description: "Pemasangan sistem rak yang terukur dan serah terima unit siap kerja yang mematuhi standar regulasi keselamatan." },
+      { id: 5, title: "Jaminan Perawatan", description: "Dukungan teknis berkala dan respon darurat yang cepat untuk menjaga stabilitas produktivitas logistik Anda." }
     ]
   },
   en: {
-    badge: "WORKFLOW",
-    title: "Our Operational Process",
-    subtitle: "Structured stages from initial consultation to long-term system maintenance.",
+    badge: "OUR WORKFLOW",
+    title: "Structured Stages Toward Logistics Efficiency",
+    subtitle: "From initial discussions to long-term maintenance guarantees, every process is measurably designed for your smooth operations.",
     steps: [
-      { id: 1, title: "Needs Consultation", description: "In-depth discussion regarding lock types and specific requirements for your fleet or warehouse." },
-      { id: 2, title: "Free Site Survey", description: "Technical team conducts on-site analysis for optimal component installation mapping." },
-      { id: 3, title: "Solution Proposal", description: "Drafting layout proposals and offering the finest protection product specifications." },
-      { id: 4, title: "Installation & Testing", description: "Unit deployment by master technicians followed by full system operational tryouts." },
-      { id: 5, title: "Maintenance Support", description: "Comprehensive after-sales service to guarantee all instruments perform at their peak." }
+      { id: 1, title: "Needs Consultation", description: "In-depth discussions to understand commodity types, material flow volume, and your warehouse efficiency targets." },
+      { id: 2, title: "Free Site Survey", description: "Direct on-site inspection of your facility to precisely measure the layout and map out maneuvering paths." },
+      { id: 3, title: "Solution Recomendation", description: "Formulation of specific fleet specifications along with custom layout planning that maximizes space capacity." },
+      { id: 4, title: "Installation & Commissioning", description: "Installation of measured racking systems and handover of ready-to-work units compliant with safety regulatory standards." },
+      { id: 5, title: "Maintenance Guarantee", description: "Periodic technical support and rapid emergency response to maintain the stability of your logistics productivity." }
     ]
   },
   "zh-Hans": {
-    badge: "作业流程",
-    title: "我们的标准作业流程",
-    subtitle: "从最初的一对一深度咨询到长期的系统技术维护，提供全方位结构化的阶段服务。",
+    badge: "我们的工作流程",
+    title: "实现物流效率的结构化步骤",
+    subtitle: "从初步讨论到长期的维护保障，每一道工序都经过精准设计，旨在确保您的运营顺畅无阻。",
     steps: [
-      { id: 1, title: "核心需求咨询", description: "深入讨论适合您具体业务的智能锁具类型，以及车队或工业仓库的专属安全防护技术指标。" },
-      { id: 2, title: "免费现场勘测", description: "派遣资深技术团队前往现场进行深度物理环境分析，以制定精细化的安全组件工程安装映射方案。" },
-      { id: 3, title: "定制方案建议", description: "根据现场数据，精心编纂高效的规划技术提案，并提供最优质、高性价比的工业级防护产品配置单。" },
-      { id: 4, title: "专业安装与测试", description: "由持证资深工程技术人员进行现场硬件部署，紧接着进行严苛的全面系统集成全功能性联动运行测试。" },
-      { id: 5, title: "长期全维技术维护", description: "提供全天候的售后技术支持保障，定期追踪设备健康度，确保所有安全终端始终保持巅峰作业性能。" }
+      { id: 1, title: "需求咨询", description: "深入探讨以了解商品类型、物流动线规模以及您的仓库效率目标。" },
+      { id: 2, title: "免费现场勘测", description: "对您的设施进行实地考察，精准测量布局并规划操作路径。" },
+      { id: 3, title: "解决方案建议", description: "制定具体的车队规格，并配合定制化的布局规划，以最大化空间容量。" },
+      { id: 4, title: "安装与调试", description: "安装测绘好的货架系统，并交付符合安全监管标准的准备就绪设备。" },
+      { id: 5, title: "维护保障", description: "提供定期的技术支持和快速的应急响应，以维持您物流生产力的稳定性。" }
     ]
   }
 }

@@ -21,52 +21,52 @@ const aboutContent: Record<string, any> = {
   id: {
     badge: "Mitra Logistik Terpercaya",
     title: "Solusi Peralatan Gudang untuk Meminimalkan Risiko Kerja & Downtime",
-    description: "Menjaga kelancaran aliran material di gudang membutuhkan lebih dari sekadar peralatan yang fungsional. Kami hadir menyediakan ekosistem terintegrasi untuk memastikan produktivitas pergudangan Anda tetap berada pada level tertinggi dengan armada yang andal dan aman.",
+    description: "Menjaga kelancaran alur material di gudang memerlukan lebih dari sekadar peralatan yang fungsional. Kami memahami ketatnya regulasi kesehatan dan keselamatan kerja (K3) di lingkungan industri Anda. Oleh karena itu, Keylock Indonesia memastikan setiap armada forklift siap digunakan dengan dokumen SIA (Surat Izin Alat) dan SIO (Surat Izin Operator) yang valid dan aktif. Kami bermitra dengan Anda untuk menjaga standar keselamatan tertinggi, meminimalkan risiko kecelakaan kerja, dan memastikan operasional Anda selalu lolos setiap audit keselamatan.",
     bullet_points: [
-      { id: 1, text: "Layanan Dukungan Teknis Profesional" },
-      { id: 2, text: "Operator & Teknisi Tersertifikasi Resmi" },
-      { id: 3, text: "Unit Forklift Terbaru & Selalu Terawat" },
-      { id: 4, text: "Jangkauan Layanan Luas di Kawasan Industri" }
+      { id: 1, text: "Unit yang patuh regulasi (SIA & SIO Aktif)" },
+      { id: 2, text: "Armada bersertifikasi K3 tingkat atas" },
+      { id: 3, text: "Jaminan unit cadangan untuk mencegah downtime" },
+      { id: 4, text: "Kontrak fleksibel & penghematan CAPEX" }
     ],
     stats: [
-      { id: 1, value: 10, suffix: "+", label: "Tahun Pengalaman" },
-      { id: 2, value: 500, suffix: "+", label: "Kapasitas Racking (Pallet)" },
-      { id: 3, value: 150, suffix: "+", label: "Unit Forklift Aktif" },
-      { id: 4, value: 99, suffix: "%", label: "Tingkat Kepuasan Klien" }
+      { id: 1, value: 1000, suffix: "+", label: "Proyek Terselesaikan" },
+      { id: 2, value: 500, suffix: "+", label: "Klien Mitra" },
+      { id: 3, value: "24/7", label: "Dukungan Teknis" },
+      { id: 4, value: 100, suffix: "%", label: "Sertifikasi K3 Lengkap" }
     ]
   },
   en: {
     badge: "Trusted Logistics Partner",
     title: "Warehouse Equipment Solutions to Minimize Workplace Risks & Downtime",
-    description: "Maintaining smooth material flow in a warehouse requires more than just functional equipment. We are here to provide an integrated ecosystem to ensure your warehousing productivity stays at its peak with reliable and safe fleets.",
+    description: "Maintaining smooth material flow in a warehouse requires more than just functional equipment. We understand the strict occupational health and safety (OHS/K3) regulations in your industrial environment. Therefore, Keylock Indonesia ensures every forklift fleet is ready for use with valid and active SIA (Equipment License) and SIO (Operator License) documents. We partner with you to maintain the highest safety standards, minimize workplace incident risks, and ensure your operations always pass every safety audit.",
     bullet_points: [
-      { id: 1, text: "Professional Technical Support Services" },
-      { id: 2, text: "Officially Certified Operators & Technicians" },
-      { id: 3, text: "Latest & Fully Maintained Forklift Units" },
-      { id: 4, text: "Wide Service Coverage Across Industrial Areas" }
+      { id: 1, text: "Regulation-compliant units (Active SIA & SIO)" },
+      { id: 2, text: "Top-tier OHS/K3-certified fleet" },
+      { id: 3, text: "Guaranteed back-up units to prevent downtime" },
+      { id: 4, text: "Flexible contracts & CAPEX savings" }
     ],
     stats: [
-      { id: 1, value: 10, suffix: "+", label: "Years of Experience" },
-      { id: 2, value: 500, suffix: "+", label: "Racking Capacity (Pallets)" },
-      { id: 3, value: 150, suffix: "+", label: "Active Forklift Units" },
-      { id: 4, value: 99, suffix: "%", label: "Client Satisfaction Rate" }
+      { id: 1, value: 1000, suffix: "+", label: "Completed Projects" },
+      { id: 2, value: 500, suffix: "+", label: "Partner Clients" },
+      { id: 3, value: 24/7, label: "Technical Support" },
+      { id: 4, value: 100, suffix: "%", label: "Extensive K3 Certification" }
     ]
   },
   "zh-Hans": {
-    badge: "卓越物流合作伙伴",
-    title: "仓储设备解决方案，最大程度减少安全风险与停机时间",
-    description: "保持仓库中物料流动的顺畅不仅需要功能性的设备。我们致力于为您提供一个完整的集成生态系统，通过高效、安全的车队确保您的仓储生产力始终保持在最高水平。",
+    badge: "值得信赖的物流合作伙伴",
+    title: "仓库设备解决方案，旨在最大限度地降低工作场所风险与停机时间",
+    description: "维持仓库内顺畅的物料流转不仅仅需要功能齐全的设备。我们深知您工业环境中严苛的职业健康与安全 (OHS/K3) 法规。因此，Keylock Indonesia 确保每一台叉车车队都持有有效且激活的 SIA（设备许可证）和 SIO（操作员许可证）文件，随时可供使用。我们与您合作，共同维护最高的安全标准，最大限度地减少工作场所事故风险，并确保您的运营始终通过各项安全审计。",
     bullet_points: [
-      { id: 1, text: "专业及时的技术支持服务" },
-      { id: 2, text: "持有官方执照的操作员与技师" },
-      { id: 3, text: "最新且保养完美的叉车单元" },
-      { id: 4, text: "广泛覆盖各大工业园区的服务网络" }
+      { id: 1, text: "符合法规的单位（有效的 SIA 和 SIO）" },
+      { id: 2, text: "顶级 OHS/K3 认证车队" },
+      { id: 3, text: "提供备用单位，防止停机" },
+      { id: 4, text: "灵活的合同与资本支出 (CAPEX) 节省" }
     ],
     stats: [
-      { id: 1, value: 10, suffix: "+", label: "行业经验 (年)" },
-      { id: 2, value: 500, suffix: "+", label: "货架容量 (托盘)" },
-      { id: 3, value: 150, suffix: "+", label: "活跃叉车单元" },
-      { id: 4, value: 99, suffix: "%", label: "客户满意度" }
+      { id: 1, value: 1000, suffix: "+", label: "已完成项目" },
+      { id: 2, value: 500, suffix: "+", label: "合作伙伴客户" },
+      { id: 3, value: "24/7", label: "技术支持" },
+      { id: 4, value: 100, suffix: "%", label: "全面的 K3 认证" }
     ]
   }
 }

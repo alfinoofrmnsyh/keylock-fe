@@ -12,32 +12,32 @@ const heroData: Record<string, any> = {
   id: {
     hero_badge: "Spesialis Material Handling & Racking",
     title: "Maksimalkan Kapasitas Ruang & Efisiensi Gudang Anda",
-    subtitle: "Kami menyediakan layanan terintegrasi untuk Penjualan & Penyewaan Forklift Premium, Sistem Racking Gudang, dan Palet Plastik Berkualitas Tinggi. Dirancang untuk meminimalkan operational downtime dan mengoptimalkan alur logistik Anda.",
+    subtitle: "Kami menyediakan unit Forklift (baru/bekas), Pallet Plastik, Industrial Tools, Truck Scale, dan Rak Gudang berkualitas. Solusi satu pintu untuk meningkatkan efisiensi operasional pabrik Anda.",
     cta_text: "Minta Penawaran",
     hero_cta_link: "https://wa.me/62xxxxxxxxxx",
     cta_text2: "Konsultasi Penjualan (WA)",
     hero_cta_link2: "https://wa.me/62xxxxxxxxxx",
     steps: [
-      { id: 1, title: "Penjualan & Sewa <b>Forklift</b>", description: "Penanganan lancar tanpa <b>downtime</b>" },
-      { id: 2, title: "Sistem <b>Racking Gudang</b>", description: "Optimalkan kapasitas ruang <b>vertikal</b>" },
-      { id: 3, title: "Palet <b>Plastik</b>", description: "Daya tahan tinggi & perlindungan <b>aset</b>" },
+      { id: 1, title: "Penjualan & Sewa <b>Forklift</b>", description: "Ketersediaan forklift <b>bergaransi</b>" },
+      { id: 2, title: "Sistem <b>Racking Gudang</b>", description: "Kapasitas ruang <b>vertikal</b>" },
+      { id: 3, title: "Palet <b>Plastik</b>", description: "Daya tahan tinggi & <b>berkualitas</b>" },
       { id: 4, title: "Solusi <b>Logistik</b>", description: "Layanan satu pintu dari para <b>ahli</b>" }
     ]
   },
   en: {
     hero_badge: "Material Handling & Racking Specialist",
     title: "Maximize Your Space Capacity & Warehouse Efficiency",
-    subtitle: "We provide integrated services for Premium Forklift Sales & Rental, Warehouse Racking Systems, and High-Quality Plastic Pallets. Engineered to minimize operational downtime and optimize your logistics flow.",
+    subtitle: "We provide new & used Forklifts, Plastic Pallets, Industrial Tools, Truck Scales, and Storage Racks. A one-stop solution to maximize your factory's operational efficiency.",
     cta_text: "Request a Quote",
     hero_cta_link: "https://wa.me/62xxxxxxxxxx",
     cta_text2: "Sales Consultation (WA)",
     hero_cta_link2: "https://wa.me/62xxxxxxxxxx",
     steps: [
-      { id: 1, title: "Forklift <b>Sales & Rental</b>", description: "Smooth handling without <b>downtime</b>" },
-      { id: 2, title: "Warehouse <b>Racking</b>", description: "Optimize vertical space <b>capacity</b>" },
-      { id: 3, title: "Plastic <b>Pallets</b>", description: "High durability & asset <b>protection</b>" },
-      { id: 4, title: "Logistics <b>Solution</b>", description: "One-stop service from <b>experts</b>" }
-    ]
+          { id: 1, title: "<b>Forklift</b> Sales & Rental", description: "<b>Guaranteed</b> forklift availability" },
+          { id: 2, title: "<b>Warehouse Racking</b> Systems", description: "<b>Vertical</b> space capacity" },
+          { id: 3, title: "<b>Plastic</b> Pallets", description: "High durability & <b>quality</b>" },
+          { id: 4, title: "<b>Logistics</b> Solutions", description: "One-stop service from <b>experts</b>" }
+        ]
   },
   "zh-Hans": {
     hero_badge: "物料搬运与仓储货架专家",
@@ -48,11 +48,11 @@ const heroData: Record<string, any> = {
     cta_text2: "销售咨询 (微信)",
     hero_cta_link2: "weixin://",
     steps: [
-      { id: 1, title: "叉车<b>销售与租赁</b>", description: "顺畅搬运，绝无<b>停机时间</b>" },
-      { id: 2, title: "仓库<b>货架系统</b>", description: "优化垂直空间<b>容量</b>" },
-      { id: 3, title: "塑料<b>托盘</b>", description: "高耐用性与资产<b>保护</b>" },
-      { id: 4, title: "物流<b>解决方案</b>", description: "专家的一站式<b>服务</b>" }
-    ]
+          { id: 1, title: "<b>叉车</b>销售与租赁", description: "<b>有保障的</b>叉车供应" },
+          { id: 2, title: "<b>仓库货架</b>系统", description: "<b>垂直</b>空间容量" },
+          { id: 3, title: "<b>塑料</b>托盘", description: "高耐用性与<b>优质</b>" },
+          { id: 4, title: "<b>物流</b>解决方案", description: "来自<b>专家</b>的一站式服务" }
+        ],
   }
 }
 
@@ -104,9 +104,9 @@ export function Hero({ locale = "id" }: HeroProps) {
         {/* Badge Atas */}
         {data.hero_badge && (
           <div className="flex items-center gap-2.5 border-l-2 border-amber-400 pl-3 text-left self-center sm:self-auto">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Keylock Indonesia</span>
-            <span className="text-[11px] font-medium text-slate-600">•</span>
-            <span className="text-[11px] font-bold uppercase tracking-wider text-amber-400">
+            <span className="text-[9px] font-bold uppercase tracking-wider text-slate-400">Keylock Indonesia</span>
+            <span className="text-[9px] font-medium text-slate-600">•</span>
+            <span className="text-[9px] font-bold uppercase tracking-wider text-amber-400">
               {data.hero_badge}
             </span>
           </div>
@@ -150,21 +150,21 @@ export function Hero({ locale = "id" }: HeroProps) {
           )}
         </div>
 
-        {/* 4 Grid Solusi Terintegrasi Dinamis */}
+    
+        {/* 4 Grid Solusi Terintegrasi Dinamis - Card Lebar tapi Tetap Pendek */}
         {finalSteps.length > 0 && (
-          <div className="absolute bottom-20 left-0 right-0 hidden lg:grid grid-cols-4 gap-6 max-w-5xl mx-auto px-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 w-full max-w-5xl mx-auto px-4">
             {finalSteps.map((item: any) => (
               <div 
                 key={item.id} 
-                className="text-center p-3.5 rounded-lg border border-white/5 bg-white/[0.02] backdrop-blur-sm transition-all hover:bg-white/[0.04]"
+                className="px-5 py-3 rounded-lg border border-white/10 bg-white/[0.03] backdrop-blur-md flex flex-col justify-center"
               >
-                {/* Atribut borderColor="transparent" sudah dihapus dari tag <p> di bawah ini */}
                 <p 
-                  className="text-xs font-bold text-slate-200 uppercase tracking-wide [&>b]:text-amber-400 [&>b]:font-bold" 
+                  className="text-[11px] font-bold text-white uppercase tracking-wider truncate [&>b]:text-amber-400" 
                   dangerouslySetInnerHTML={{ __html: item.title }} 
                 />
                 <p 
-                  className="text-[11px] text-slate-300 mt-1 leading-snug [&>b]:text-amber-400 [&>b]:font-semibold" 
+                  className="text-[10px] text-slate-400 mt-0.5 leading-tight truncate [&>b]:text-amber-300" 
                   dangerouslySetInnerHTML={{ __html: item.description }} 
                 />
               </div>
@@ -172,6 +172,7 @@ export function Hero({ locale = "id" }: HeroProps) {
           </div>
         )}
       </div>
+    
 
       {/* Background Grid Pattern dekoratif */}
       <div className="absolute inset-0 z-15 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />

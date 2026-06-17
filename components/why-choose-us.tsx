@@ -17,41 +17,41 @@ const HARDCODED_ADVANTAGES_ICONS = [
 const CONTENT_DICTIONARY: Record<string, { badge: string; title: string; subtitle: string; advantages: any[] }> = {
   id: {
     badge: "KEUNGGULAN KAMI",
-    title: "Mengapa Memilih Keylock ID?",
-    subtitle: "Kami memberikan layanan terintegrasi dan berkomitmen penuh untuk menjaga efisiensi serta keamanan aset logistik Anda.",
+    title: "Mengapa Memilih Keylock Indonesia?",
+    subtitle: "Kami memadukan armada logistik premium dengan layanan purnajual responsif agar rantai pasok bisnis Anda tidak pernah terganggu.",
     advantages: [
-      { id: 1, title: "Efisiensi Biaya", description: "Menawarkan solusi penguncian dan keamanan logistik kompetitif dengan ROI jangka panjang yang tinggi." },
-      { id: 2, title: "Tim Profesional", description: "Didukung oleh tenaga ahli dan teknisi berpengalaman yang siap menangani kebutuhan industri Anda." },
-      { id: 3, title: "Pengiriman Cepat", description: "Ketepatan waktu distribusi armada armada logistik demi kelancaran operasional rantai pasok." },
-      { id: 4, title: "Jaminan Keamanan", description: "Sistem pengamanan material tangguh yang memenuhi standar proteksi industri internasional." },
-      { id: 5, title: "Layanan Teknis", description: "Dukungan penuh proses instalasi, komisioning sistem, hingga troubleshoot berkala di lapangan." },
-      { id: 6, title: "Kustomisasi Penuh", description: "Fleksibilitas penyesuaian spesifikasi produk yang adaptif mengikuti kebutuhan unik gudang Anda." }
+      { id: 1, title: "Efisiensi Anggaran Nyata", description: "Skema harga transparan tanpa biaya tersembunyi, membantu menekan pengeluaran CapEx untuk pengadaan peralatan Anda." },
+      { id: 2, title: "Teknisi Bersertifikasi SIO", description: "Didukung oleh mekanik ahli dan operator berpengalaman yang memegang sertifikasi keselamatan kerja resmi." },
+      { id: 3, title: "Mobilisasi Jaringan Luas", description: "Pengiriman unit tepat waktu dan dukungan logistik yang menjangkau seluruh wilayah operasional Anda." },
+      { id: 4, title: "Unit Patuh Audit K3", description: "Seluruh armada rutin lolos inspeksi teknis yang ketat dan dilengkapi dengan dokumen SIA yang valid dan aktif." },
+      { id: 5, title: "Jaminan Anti-Downtime", description: "Layanan pemeliharaan berkala terjadwal beserta jaminan unit cadangan instan jika terjadi kendala." },
+      { id: 6, title: "Optimasi Ruang Terukur", description: "Rancangan teknis dan tata letak sistem racking gudang yang dihitung secara presisi untuk memaksimalkan kapasitas penyimpanan." }
     ]
   },
   en: {
     badge: "OUR ADVANTAGES",
-    title: "Why Choose Keylock ID?",
-    subtitle: "We provide integrated services and are fully committed to maintaining the efficiency and security of your logistics assets.",
+    title: "Why Choose Keylock Indonesia?",
+    subtitle: "We combine a premium logistics fleet with responsive after-sales service so that your business supply chain is never disrupted.",
     advantages: [
-      { id: 1, title: "Cost Efficiency", description: "Offering competitive locking and logistics security solutions with a high long-term ROI." },
-      { id: 2, title: "Professional Team", description: "Supported by experts and experienced technicians ready to handle your industrial needs." },
-      { id: 3, title: "Fast Delivery", description: "On-time distribution of logistics fleets for smooth supply chain operations." },
-      { id: 4, title: "Security Guarantee", description: "Robust material protection systems that meet international industrial protection standards." },
-      { id: 5, title: "Technical Support", description: "Full support for installation, system commissioning, to periodic troubleshooting in the field." },
-      { id: 6, title: "Full Customization", description: "Flexible product specification adjustments adaptive to the unique needs of your warehouse." }
+      { id: 1, title: "Real Budget Efficiency", description: "Transparent pricing schemes with no hidden fees, helping to slash CapEx expenditures on your equipment procurement." },
+      { id: 2, title: "SIO-Certified Technicians", description: "Backed by expert mechanics and experienced operators holding official workplace safety certifications." },
+      { id: 3, title: "Wide Network Mobilization", description: "On-time unit delivery and logistics support that spans across your entire operational area." },
+      { id: 4, title: "K3 Audit-Compliant Units", description: "The entire fleet routinely passes strict technical inspections and is equipped with valid and active SIA documents." },
+      { id: 5, title: "Anti-Downtime Guarantee", description: "Scheduled periodic maintenance services along with instant backup unit guarantees if issues arise." },
+      { id: 6, title: "Measured Space Optimization", description: "Precisely calculated engineering and layout of warehouse racking systems to maximize storage capacity." }
     ]
   },
   "zh-Hans": {
     badge: "我们的优势",
-    title: "为什么选择 Keylock ID？",
-    subtitle: "我们提供一体化服务，全心致力于保障您物流资产的高效与安全。",
+    title: "为什么选择 Keylock Indonesia？",
+    subtitle: "我们将优质的物流车队与快速响应的售后服务相结合，确保您的商业供应链始终顺畅，不受干扰。",
     advantages: [
-      { id: 1, title: "成本效益", description: "提供具有竞争力的锁具与物流安全解决方案，带来高额的长期投资回报。" },
-      { id: 2, title: "专业团队", description: "拥有经验丰富的专家和技术人员，随时满足您的工业级定制化需求。" },
-      { id: 3, title: "快速交付", description: "准时高效配送物流车队，全面确保整个工业供应链的顺畅运转。" },
-      { id: 4, title: "安全保障", description: "坚固耐用的物料防护保护系统，符合严格的国际工业安全防护标准。" },
-      { id: 5, title: "技术支持", description: "全程提供现场高标准安装、系统调试指导以及定期的故障排查服务。" },
-      { id: 6, title: "全面定制", description: "极具灵活性的产品规格调整，精准适配您仓库或工厂的独特作业需求。" }
+      { id: 1, title: "实实在在的预算效率", description: "价格方案公开透明，绝无隐性费用，协助您大幅削减设备采购的资本支出 (CapEx)。" },
+      { id: 2, title: "拥有 SIO 认证的技术人员", description: "由持有官方职业安全认证的专业机械师和经验丰富的操作人员提供技术支持。" },
+      { id: 3, title: "广泛的网络调度能力", description: "准时的设备交付与物流支持，覆盖您的整个运营区域。" },
+      { id: 4, title: "符合 K3 审计标准的单位", description: "整个车队定期通过严格的技术检查，并配备有效且激活的 SIA 文件。" },
+      { id: 5, title: "防停机保障", description: "提供定期的预防性维护服务，并承诺在出现问题时立即提供备用设备。" },
+      { id: 6, title: "精准的空间优化", description: "通过科学的工程计算和仓库货架布局设计，最大限度地提升您的仓储容量。" }
     ]
   }
 }

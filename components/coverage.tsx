@@ -20,20 +20,20 @@ const CITIES_DATA = [
 const CONTENT_DICTIONARY: Record<string, { badge: string; title: string; description: string; cities: any[] }> = {
   id: {
     badge: "WILAYAH CAKUPAN",
-    title: "Jangkauan Operasional Kami",
-    description: "Kami melayani berbagai kawasan industri strategis di Indonesia untuk memastikan kelancaran distribusi armada dan rantai pasok Anda.",
+    title: "Melayani Kebutuhan Industri di Seluruh Indonesia",
+    description: "Mencakup zona industri utama dan pusat logistik strategis di Indonesia, kami memastikan ketersediaan armada dan dukungan teknis terbaik langsung di lokasi bisnis Anda.",
     cities: CITIES_DATA.map(c => ({ id: c.id, name: c.nameId, lng: c.lng, lat: c.lat }))
   },
   en: {
     badge: "SERVICE COVERAGE",
-    title: "Our Operational Reach",
-    description: "We serve various strategic industrial zones across Indonesia to ensure your fleet distribution and supply chain flow seamlessly.",
+    title: "Serving Industrial Needs Across Indonesia ",
+    description: "Spanning across Indonesia's major industrial zones and strategic logistics hubs, we ensure top-tier fleet availability and technical support right at your business location.",
     cities: CITIES_DATA.map(c => ({ id: c.id, name: c.nameEn, lng: c.lng, lat: c.lat }))
   },
   "zh-Hans": {
     badge: "业务覆盖范围",
-    title: "我们的业务辐射区域",
-    description: "我们全力服务于印度尼西亚（印尼）各核心战略工业园区，全面保障您的车队调配与供应链高效顺畅运转。",
+    title: "服务覆盖印度尼西亚的工业需求",
+    description: "我们的业务遍布印度尼西亚各大工业区和战略物流枢纽，确保在您的经营所在地提供优质的车队资源和技术支持。",
     cities: CITIES_DATA.map(c => ({ id: c.id, name: c.nameZh, lng: c.lng, lat: c.lat }))
   }
 }
