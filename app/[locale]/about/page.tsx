@@ -1,5 +1,5 @@
 import { CompanyOverview } from "@/components/company-overview"
-
+export const dynamic = 'force-dynamic';
 interface AboutPageProps {
   params: Promise<{ locale: string }>
 }

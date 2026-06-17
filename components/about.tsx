@@ -31,7 +31,7 @@ const aboutContent: Record<string, any> = {
     stats: [
       { id: 1, value: 1000, suffix: "+", label: "Proyek Terselesaikan" },
       { id: 2, value: 500, suffix: "+", label: "Klien Mitra" },
-      { id: 3, value: "24/7", label: "Dukungan Teknis" },
+      { id: 3, isStatic: true, value: "24/7", label: "Dukungan Teknis" },
       { id: 4, value: 100, suffix: "%", label: "Sertifikasi K3 Lengkap" }
     ]
   },
@@ -48,7 +48,7 @@ const aboutContent: Record<string, any> = {
     stats: [
       { id: 1, value: 1000, suffix: "+", label: "Completed Projects" },
       { id: 2, value: 500, suffix: "+", label: "Partner Clients" },
-      { id: 3, value: 24/7, label: "Technical Support" },
+      { id: 3, isStatic: true, value: 24/7, label: "Technical Support" },
       { id: 4, value: 100, suffix: "%", label: "Extensive K3 Certification" }
     ]
   },
@@ -65,7 +65,7 @@ const aboutContent: Record<string, any> = {
     stats: [
       { id: 1, value: 1000, suffix: "+", label: "已完成项目" },
       { id: 2, value: 500, suffix: "+", label: "合作伙伴客户" },
-      { id: 3, value: "24/7", label: "技术支持" },
+      { id: 3, isStatic: true, value: "24/7", label: "技术支持" },
       { id: 4, value: 100, suffix: "%", label: "全面的 K3 认证" }
     ]
   }
@@ -112,25 +112,34 @@ export function About({ locale = "id" }: AboutProps) {
           </Reveal>
 
           {/* SISI KANAN: Grid Statistik */}
-          <div className="grid grid-cols-2 gap-4">
-            {data.stats?.map((s: any, i: number) => {
-              const IconComponent = HARDCODED_ICONS[i] || HelpCircle
+            <div className="grid grid-cols-2 gap-4">
+              {data.stats?.map((s: any, i: number) => {
+                const IconComponent = HARDCODED_ICONS[i] || HelpCircle;
+                
+                // Cek apakah s.value bisa diubah menjadi angka
+                const isNumeric = !isNaN(parseFloat(s.value)) && isFinite(s.value);
 
-              return (
-                <Reveal key={s.id} delay={i * 0.1}>
-                  <div className="group rounded-2xl border border-border bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-amber-300 hover:shadow-lg">
-                    <IconComponent className="size-7 text-navy transition-colors group-hover:text-amber-500" />
-                    <div className="mt-4 font-display text-3xl font-extrabold text-navy sm:text-4xl">
-                      {/* Nilai angka murni dan suffix langsung disuplai tanpa regex parsing */}
-                      <Counter to={s.value} suffix={s.suffix} />
+                return (
+                  <Reveal key={s.id} delay={i * 0.1}>
+                    <div className="group rounded-2xl border border-border bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-amber-300 hover:shadow-lg">
+                      <IconComponent className="size-7 text-navy transition-colors group-hover:text-amber-500" />
+                      
+                      <div className="mt-4 font-display text-3xl font-extrabold text-navy sm:text-4xl">
+                        {isNumeric ? (
+                          // Jika angka, jalankan animasi Counter
+                          <Counter to={s.value} suffix={s.suffix} />
+                        ) : (
+                          // Jika bukan angka (seperti "24/7"), tampilkan langsung sebagai teks
+                          <span>{s.value}</span>
+                        )}
+                      </div>
+                      
+                      <p className="mt-1 text-sm font-medium text-steel">{s.label}</p>
                     </div>
-                    <p className="mt-1 text-sm font-medium text-steel">{s.label}</p>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
-
+                  </Reveal>
+                );
+              })}
+            </div>
         </div>
       </div>
     </section>

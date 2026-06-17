@@ -37,7 +37,7 @@ export function CompanyOverview({ data }: { data: any }) {
     <div className="w-full bg-white antialiased">
       
       {/* SECTION ATAS: Ringkasan Profil */}
-      <section className="relative overflow-hidden bg-white py-16 lg:py-24">
+      <section className="relative overflow-hidden bg-white pt-8 pb-16 lg:pt-12 lg:pb-24">
         <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
           <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
             <div className="relative overflow-hidden rounded-2xl lg:col-span-5">
