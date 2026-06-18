@@ -9,7 +9,7 @@ const COMMON_CONFIG = {
   phone: "+62 812 3456 7890",
   email: "info@keylockindonesia.com",
   whatsapp_number: "6285173013525",
-  google_maps_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.3055732178386!2d107.264135374785!3d-6.354474862166041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e699d800f0c8e61%3A0x6bf0f30e04f4ef5e!2sPT%20KEY%20LOCK%20INDONESIA!5e0!3m2!1sid!2sid!4v1781268373774!5m2!1sid!2sid" // Ganti dengan embed URL maps resmi Anda
+  google_maps_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.3055732178386!2d107.264135374785!3d-6.354474862166041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e699d800f0c8e61%3A0x6bf0f30e04f4ef5e!2sPT%20KEY%20LOCK%20INDONESIA!5e0!3m2!1sid!2sid!4v1781268373774!5m2!1sid!2sid"
 }
 
 const CONTENT_DICTIONARY: Record<string, { description: string; contactTitle: string; waLabel: string; copyright: string; keywords: string; navigation: any[] }> = {
@@ -99,6 +99,13 @@ const CONTENT_DICTIONARY: Record<string, { description: string; contactTitle: st
   }
 }
 
+// 1. KAMUS LABEL KONVERSI GOOGLE ADS UNTUK FOOTER (Disamakan dengan Label Hero WA)
+const FOOTER_GADS_LABELS: Record<string, string> = {
+  id: "8m9jCPu8sEceLCd9_xD",
+  en: "8m9jCPu8sEceLCd9_xD",
+  "zh-Hans": "8m9jCPu8sEceLCd9_xD",
+}
+
 interface FooterProps {
   locale?: string
 }
@@ -109,6 +116,16 @@ export function Footer({ locale = "id" }: FooterProps) {
 
   const currentContent = CONTENT_DICTIONARY[locale] || CONTENT_DICTIONARY["id"]
   const isAtHomepage = pathname === `/${locale}` || pathname === `/${locale}/`
+
+  // 2. FUNGSI UNTUK MENEMBAKKAN EVENT KONVERSI KE GOOGLE ADS
+  const trackGadsConversion = () => {
+    const currentLabel = FOOTER_GADS_LABELS[locale] || FOOTER_GADS_LABELS.id;
+    if (typeof window !== "undefined" && (window as any).gtag) {
+      (window as any).gtag("event", "conversion", {
+        send_to: `AW-18247175856/${currentLabel}`,
+      });
+    }
+  };
 
   return (
     <footer className="bg-[#0a1424] text-slate-300 border-t border-white/5">
@@ -187,10 +204,12 @@ export function Footer({ locale = "id" }: FooterProps) {
             </ul>
             
             <div className="mt-5">
+              {/* 3. MENAMBAHKAN ONCLICK DAN MEMPERBAIKI REL ATTRIBUTE */}
               <a
                 href={`https://wa.me/${COMMON_CONFIG.whatsapp_number}`}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
+                onClick={trackGadsConversion}
                 className="inline-flex items-center gap-2 rounded-lg bg-emerald-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-emerald-400"
               >
                 <MessageCircle className="size-4" /> {currentContent.waLabel}

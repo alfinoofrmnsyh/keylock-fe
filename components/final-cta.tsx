@@ -30,12 +30,24 @@ const CONTENT_DICTIONARY: Record<string, { title: string; description: string; b
   }
 }
 
+// 1. DEFINISIKAN LABEL KONVERSI GLOBAL DARI GOOGLE ADS
+const GADS_CONVERSION_LABEL = "8m9jCPu8sEceLCd9_xD";
+
 interface FinalCtaProps {
   locale?: string
 }
 
 export function FinalCta({ locale = "id" }: FinalCtaProps) {
   const currentContent = CONTENT_DICTIONARY[locale] || CONTENT_DICTIONARY["id"]
+
+  // 2. FUNGSI UNTUK MENEMBAKKAN EVENT KONVERSI
+  const trackGadsConversion = () => {
+    if (typeof window !== "undefined" && (window as any).gtag) {
+      (window as any).gtag("event", "conversion", {
+        send_to: `AW-18247175856/${GADS_CONVERSION_LABEL}`,
+      });
+    }
+  };
 
   return (
     <section id="contact" className="relative overflow-hidden bg-navy py-28">
@@ -74,18 +86,23 @@ export function FinalCta({ locale = "id" }: FinalCtaProps) {
         </p>
         
         <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+          {/* 3. TOMBOL 1 (KONSULTASI GRATIS): TAMBAHKAN ONCLICK DAN UPDATE REL */}
           <a
             href={currentContent.url1}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
+            onClick={trackGadsConversion}
             className="inline-flex h-12 items-center justify-center gap-1 rounded-lg bg-amber-400 px-7 text-sm font-semibold text-navy transition-colors hover:bg-amber-300"
           >
             {currentContent.btnText1} <ArrowRight className="ml-1 size-4" />
           </a>
+
+          {/* 4. TOMBOL 2 (WHATSAPP SALES): TAMBAHKAN ONCLICK DAN UPDATE REL */}
           <a
             href={currentContent.url2}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
+            onClick={trackGadsConversion}
             className="inline-flex h-12 items-center justify-center rounded-lg bg-emerald-500 px-7 text-sm font-semibold text-white transition-colors hover:bg-emerald-400"
           >
             <MessageCircle className="mr-1 size-4" /> {currentContent.btnText2}

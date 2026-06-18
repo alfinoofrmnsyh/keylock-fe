@@ -56,7 +56,7 @@ export function Navbar({ locale = "id" }: NavbarProps) {
     onScroll()
     window.addEventListener("scroll", onScroll)
     return () => window.removeEventListener("scroll", onScroll)
-  }, [locale]); // <-- Dependensi ditambahkan agar fetch ulang saat locale ganti
+  }, [locale, API_URL]);
 
   const t = menuTranslations[locale] || menuTranslations.id
   const isAtHomepage = pathname === `/${locale}` || pathname === `/${locale}/`
@@ -136,7 +136,7 @@ export function Navbar({ locale = "id" }: NavbarProps) {
           })}
         </div>
 
-        {/* CTA & Language Switcher */}
+        {/* Desktop CTA & Language Switcher */}
         <div className="hidden items-center gap-4 md:flex">
           <a href={isAtHomepage ? "#contact" : `/${locale}#contact`} className="inline-flex h-10 items-center justify-center rounded-lg bg-amber-400 px-5 text-sm font-semibold text-[#0c1a30] transition-colors hover:bg-amber-300">
             {t.cta}
@@ -159,7 +159,7 @@ export function Navbar({ locale = "id" }: NavbarProps) {
           </div>
         </div>
 
-      {/* Mobile Toggle Button */}
+        {/* Mobile Toggle Button */}
         <button className={`md:hidden p-2 rounded-lg ${scrolled || isAtHomepage ? "text-white" : "text-slate-800"}`} onClick={() => setOpen((v) => !v)} aria-label="Toggle menu">
           {open ? <X className="size-6" /> : <Menu className="size-6" />}
         </button>
@@ -172,7 +172,7 @@ export function Navbar({ locale = "id" }: NavbarProps) {
             {links.map((l) => (
               l.isDropdown ? (
                 <div key={l.label}>
-                  <button onClick={() => setProductsMobileOpen(!productsMobileOpen)} className="flex w-full items-center justify-between text-lg font-medium py-2">
+                  <button onClick={() => setProductsMobileOpen(!productsMobileOpen)} className="flex w-full items-center justify-between text-lg font-medium py-2 text-left">
                     {l.label}
                     <ChevronDown className={`size-5 transition-transform ${productsMobileOpen ? "rotate-180" : ""}`} />
                   </button>
@@ -187,11 +187,48 @@ export function Navbar({ locale = "id" }: NavbarProps) {
                   )}
                 </div>
               ) : (
-                <Link key={l.href} href={l.href} onClick={() => setOpen(false)} className="text-lg font-medium py-2">
+                <Link key={l.href} href={l.href} onClick={() => setOpen(false)} className="text-lg font-medium py-2 block">
                   {l.label}
                 </Link>
               )
             ))}
+
+            {/* BARU: Pembatas, Tombol CTA Seluler, & Pemilih Bahasa */}
+            <div className="mt-6 border-t border-white/10 pt-6 flex flex-col gap-6">
+              {/* Tombol CTA */}
+              <a 
+                href={isAtHomepage ? "#contact" : `/${locale}#contact`} 
+                onClick={() => setOpen(false)}
+                className="flex h-12 w-full items-center justify-center rounded-lg bg-amber-400 text-base font-semibold text-[#0c1a30] transition-colors hover:bg-amber-300"
+              >
+                {t.cta}
+              </a>
+
+              {/* Pemilih Bahasa */}
+              <div className="flex flex-col gap-3">
+                <div className="flex items-center gap-1.5 px-1 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                  <Globe className="size-3.5 text-amber-400" />
+                  <span>Pilih Bahasa / Language</span>
+                </div>
+                <div className="grid grid-cols-3 gap-2">
+                  {availableLocales.map((loc) => (
+                    <a 
+                      key={loc.code} 
+                      href={`/${loc.code}`} 
+                      onClick={(e) => handleLanguageChange(e, loc.code)} 
+                      className={`flex items-center justify-center rounded-lg py-2.5 text-sm font-medium transition-colors ${
+                        locale === loc.code 
+                          ? "bg-amber-400 text-[#0c1a30]" 
+                          : "bg-white/5 border border-white/10 text-slate-300 hover:bg-white/10"
+                      }`}
+                    >
+                      {loc.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       )}

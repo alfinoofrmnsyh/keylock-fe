@@ -1,7 +1,9 @@
 import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { ArrowLeft, MessageSquare } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
+// 1. Import komponen tombol client yang baru dibuat
+import { ProductWhatsAppButton } from "@/components/product-whatsapp-button"
 
 async function getProductDetail(slug: string, locale: string) {
   const laravelBaseUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -17,17 +19,27 @@ async function getProductDetail(slug: string, locale: string) {
   }
 }
 
+// 2. Kamus Label Konversi Google Ads untuk masing-masing Bahasa
+const GADS_LABELS: Record<string, string> = {
+  id: "8m9jCPu8sEceLCd9_xD",
+  en: "8m9jCPu8sEceLCd9_xD",
+  "zh-Hans": "8m9jCPu8sEceLCd9_xD",
+}
+
 export default async function ProductDetailPage({ params }: { params: Promise<{ locale: string, category: string, slug: string }> }) {
   const { locale, category, slug } = await params;
   const product = await getProductDetail(slug, locale);
 
   if (!product) return notFound();
 
-  // FIX: Ambil data spesifik berdasarkan locale
   const title = product.title[locale] || product.title['id'];
   const description = product.desc[locale] || product.desc['id'];
 
   const WHATSAPP_NUMBER = "6281234567890";
+  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Halo, saya tertarik dengan produk: ${title}`)}`;
+  
+  // Ambil label konversi yang sesuai dengan locale aktif
+  const currentGadsLabel = GADS_LABELS[locale] || GADS_LABELS.id;
 
   return (
     <main className="min-h-screen bg-slate-50 pt-32 pb-24">
@@ -40,7 +52,6 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         <div className="grid gap-12 lg:grid-cols-2 bg-white rounded-3xl p-10 border shadow-sm">
           <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-slate-100">
             <Image 
-              // GANTI menjadi product.image_url
               src={product.image_url || "/placeholder.png"} 
               alt={title} 
               fill 
@@ -55,16 +66,13 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                <div dangerouslySetInnerHTML={{ __html: description }} />
             </div>
 
+            {/* 3. Render komponen tombol pelacak konversi di sini */}
             <div className="mt-auto pt-6 border-t">
-              <a 
-                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Halo, saya tertarik dengan produk: ${title}`)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex w-full items-center justify-center gap-3 rounded-xl bg-[#0c1a30] p-4 text-white hover:bg-amber-500 font-bold"
-              >
-                <MessageSquare className="size-5" />
-                {locale === "en" ? "Request Quote" : locale === "zh-Hans" ? "获取报价" : "Minta Penawaran"}
-              </a>
+              <ProductWhatsAppButton 
+                whatsappUrl={whatsappUrl} 
+                locale={locale} 
+                gadsLabel={currentGadsLabel} 
+              />
             </div>
           </div>
         </div>
