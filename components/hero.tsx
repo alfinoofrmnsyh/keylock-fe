@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { ArrowRight, Phone, MessageSquare } from "lucide-react"
+import Image from "next/image" // 1. Impor komponen Image dari Next.js
 
 interface HeroProps {
   locale?: string;
@@ -15,7 +16,7 @@ const heroData: Record<string, any> = {
     cta_text: "Minta Penawaran",
     hero_cta_link: "https://wa.me/6289699392924",
     cta_text2: "Konsultasi Penjualan (WA)",
-    hero_cta_link2: "https://wa.me/6285173013525",
+    hero_cta_link2: "https://wa.me/625173013525",
     steps: [
       { id: 1, title: "Jual & Sewa <b>Forklift</b>", description: "Ketersediaan forklift <b>bergaransi</b>" },
       { id: 2, title: "Sistem <b>Racking Gudang</b>", description: "Kapasitas ruang <b>vertikal</b>" },
@@ -94,11 +95,13 @@ export function Hero({ locale = "id" }: HeroProps) {
           className="absolute inset-0 h-full w-full will-change-transform" 
           style={{ transform: `translateY(${scrollY * 0.35}px)` }}
         >
+          {/* Optimasi Video: Menambahkan preload="none" agar tidak membeku saat inisialisasi awal */}
           <video 
             autoPlay 
             loop 
             muted 
             playsInline 
+            preload="none"
             className="h-full w-full object-cover opacity-45" 
             src="/videos/hero.webm" 
           />
@@ -198,7 +201,18 @@ export function Hero({ locale = "id" }: HeroProps) {
           <div className="w-full max-w-sm rounded-2xl bg-white p-6 text-center shadow-2xl">
             <h3 className="text-xl font-bold text-slate-900">WeChat</h3>
             <p className="mt-2 text-sm text-slate-500">Scan QR Code below to contact our sales team.</p>
-            <img src="/images/wechat-qr.jpeg" alt="WeChat QR Code" className="mx-auto mt-5 w-64 h-64 rounded-lg border border-slate-200" />
+            
+            {/* Optimasi Gambar: Mengubah img ke Next.js Image dengan kompresi otomatis */}
+            <div className="mx-auto mt-5 relative w-64 h-64 border border-slate-200 rounded-lg overflow-hidden">
+              <Image 
+                src="/images/wechat-qr.jpeg" 
+                alt="WeChat QR Code" 
+                fill
+                sizes="256px"
+                className="object-cover"
+              />
+            </div>
+
             <button onClick={() => setShowWechatQR(false)} className="mt-6 w-full rounded-lg bg-slate-900 py-3 text-sm font-semibold text-white hover:bg-slate-800">
               Close
             </button>
