@@ -14,9 +14,9 @@ const heroData: Record<string, any> = {
     title: "Maksimalkan Kapasitas Ruang & Efisiensi Gudang Anda",
     subtitle: "Kami menyediakan unit Forklift (baru/bekas), Pallet Plastik, Industrial Tools, Truck Scale, dan Rak Gudang berkualitas. Solusi satu pintu untuk meningkatkan efisiensi operasional pabrik Anda.",
     cta_text: "Minta Penawaran",
-    hero_cta_link: "https://wa.me/62xxxxxxxxxx",
+    hero_cta_link: "https://wa.me/6289699392924",
     cta_text2: "Konsultasi Penjualan (WA)",
-    hero_cta_link2: "https://wa.me/62xxxxxxxxxx",
+    hero_cta_link2: "https://wa.me/6285173013525",
     steps: [
       { id: 1, title: "Penjualan & Sewa <b>Forklift</b>", description: "Ketersediaan forklift <b>bergaransi</b>" },
       { id: 2, title: "Sistem <b>Racking Gudang</b>", description: "Kapasitas ruang <b>vertikal</b>" },
@@ -29,9 +29,9 @@ const heroData: Record<string, any> = {
     title: "Maximize Your Space Capacity & Warehouse Efficiency",
     subtitle: "We provide new & used Forklifts, Plastic Pallets, Industrial Tools, Truck Scales, and Storage Racks. A one-stop solution to maximize your factory's operational efficiency.",
     cta_text: "Request a Quote",
-    hero_cta_link: "https://wa.me/62xxxxxxxxxx",
+    hero_cta_link: "https://wa.me/6289699392924",
     cta_text2: "Sales Consultation (WA)",
-    hero_cta_link2: "https://wa.me/62xxxxxxxxxx",
+    hero_cta_link2: "https://wa.me/6285173013525",
     steps: [
           { id: 1, title: "<b>Forklift</b> Sales & Rental", description: "<b>Guaranteed</b> forklift availability" },
           { id: 2, title: "<b>Warehouse Racking</b> Systems", description: "<b>Vertical</b> space capacity" },
@@ -44,9 +44,9 @@ const heroData: Record<string, any> = {
     title: "最大化您的空间容量与仓库效率",
     subtitle: "我们提供优质叉车销售与租赁、仓库货架系统以及高品质塑料托盘的集成服务。旨在最大程度减少停机时间并优化您的物流流程。",
     cta_text: "索取报价",
-    hero_cta_link: "https://wa.me/62xxxxxxxxxx",
+    hero_cta_link: "https://wa.me/6289699392924",
     cta_text2: "销售咨询 (微信)",
-    hero_cta_link2: "weixin://",
+    hero_cta_link2: "/images/wechat-qr.jpeg",
     steps: [
           { id: 1, title: "<b>叉车</b>销售与租赁", description: "<b>有保障的</b>叉车供应" },
           { id: 2, title: "<b>仓库货架</b>系统", description: "<b>垂直</b>空间容量" },
@@ -59,6 +59,7 @@ const heroData: Record<string, any> = {
 export function Hero({ locale = "id" }: HeroProps) {
   const [scrollY, setScrollY] = useState(0)
   const [mounted, setMounted] = useState(false)
+  const [showWechatQR, setShowWechatQR] = useState(false)
 
   useEffect(() => {
     setMounted(true)
@@ -137,17 +138,26 @@ export function Hero({ locale = "id" }: HeroProps) {
             </a>
           )}
 
-          {data.cta_text2 && (
-            <a 
-              href={data.hero_cta_link2} 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="inline-flex h-11 items-center justify-center rounded-lg border border-white/25 bg-white/5 px-6 text-sm font-semibold text-white transition-colors hover:bg-white/10 backdrop-blur-sm w-full sm:w-auto"
-            >
-              {isMandarin ? <MessageSquare className="mr-2 size-4 text-emerald-400" /> : <Phone className="mr-2 size-4 text-amber-400" />}
-              {data.cta_text2}
-            </a>
-          )}
+          {data.cta_text2 &&
+            (isMandarin ? (
+              <button
+                onClick={() => setShowWechatQR(true)}
+                className="inline-flex h-11 items-center justify-center rounded-lg border border-white/25 bg-white/5 px-6 text-sm font-semibold text-white transition-colors hover:bg-white/10 backdrop-blur-sm w-full sm:w-auto"
+              >
+                <MessageSquare className="mr-2 size-4 text-emerald-400" />
+                {data.cta_text2}
+              </button>
+            ) : (
+              <a
+                href={data.hero_cta_link2}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-11 items-center justify-center rounded-lg border border-white/25 bg-white/5 px-6 text-sm font-semibold text-white transition-colors hover:bg-white/10 backdrop-blur-sm w-full sm:w-auto"
+              >
+                <Phone className="mr-2 size-4 text-amber-400" />
+                {data.cta_text2}
+              </a>
+            ))}
         </div>
 
     
@@ -176,6 +186,33 @@ export function Hero({ locale = "id" }: HeroProps) {
 
       {/* Background Grid Pattern dekoratif */}
       <div className="absolute inset-0 z-15 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
+
+      {showWechatQR && (
+        <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/80 px-4">
+          <div className="w-full max-w-sm rounded-2xl bg-white p-6 text-center shadow-2xl">
+            <h3 className="text-xl font-bold text-slate-900">
+              WeChat
+            </h3>
+
+            <p className="mt-2 text-sm text-slate-500">
+              Scan QR Code below to contact our sales team.
+            </p>
+
+            <img
+              src="/images/wechat-qr.jpeg"
+              alt="WeChat QR Code"
+              className="mx-auto mt-5 w-64 h-64 rounded-lg border border-slate-200"
+            />
+
+            <button
+              onClick={() => setShowWechatQR(false)}
+              className="mt-6 w-full rounded-lg bg-slate-900 py-3 text-sm font-semibold text-white hover:bg-slate-800"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   )
 }

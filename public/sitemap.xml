@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <!-- HOMEPAGE (ID) -->
+  <url>
+    <loc>https://keylockindonesia.com/id</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://keylockindonesia.com/id"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://keylockindonesia.com/en"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://keylockindonesia.com/zh-Hans"/>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- HOMEPAGE (EN) -->
+  <url>
+    <loc>https://keylockindonesia.com/en</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://keylockindonesia.com/id"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://keylockindonesia.com/en"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://keylockindonesia.com/zh-Hans"/>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- HOMEPAGE (ZH-HANS) -->
+  <url>
+    <loc>https://keylockindonesia.com/zh-Hans</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://keylockindonesia.com/id"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://keylockindonesia.com/en"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://keylockindonesia.com/zh-Hans"/>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- MENU ABOUT -->
+
+  <url>
+    <loc>https://keylockindonesia.com/id/about</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://keylockindonesia.com/id/about"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://keylockindonesia.com/en/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://keylockindonesia.com/zh-Hans/about"/>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- FORKLIFT PAGE (ID) -->
+  <url>
+    <loc>https://keylockindonesia.com/id/product/forklift</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://keylockindonesia.com/id/product/forklift"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://keylockindonesia.com/en/product/forklift"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://keylockindonesia.com/zh-Hans/product/forklift"/>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- RACKING PAGE (ID) -->
+  <url>
+    <loc>https://keylockindonesia.com/id/product/storage-racks</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://keylockindonesia.com/id/product/storage-racks"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://keylockindonesia.com/en/product/storage-racks"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://keylockindonesia.com/zh-Hans/product/storage-racks"/>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- TRUCK SCALE / TIMBANGAN PAGE (ID) -->
+  <url>
+    <loc>https://keylockindonesia.com/id//product/scale</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://keylockindonesia.com/id//product/scale"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://keylockindonesia.com/en//product/scale"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://keylockindonesia.com/zh-Hans//product/scale"/>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>
