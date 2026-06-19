@@ -83,7 +83,7 @@ export default async function RootLayout({
     >
       <head>
         {/* 2. Google tag (gtag.js) - Di-load secara asinkron setelah halaman interaktif */}
-        {/* <Script
+        <Script
           src="https://www.googletagmanager.com/gtag/js?id=AW-18247175856"
           strategy="afterInteractive"
         />
@@ -95,27 +95,10 @@ export default async function RootLayout({
 
             gtag('config', 'AW-18247175856');
           `}
-        </Script> */}
-        <Script id="gtm-script" strategy="afterInteractive">
-          {`
-            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-5S436JBQ');
-          `}
         </Script>
-        
       </head>
       <body className="font-sans antialiased text-slate-900 bg-white flex flex-col min-h-screen">
-       <noscript>
-          <iframe 
-            src="https://www.googletagmanager.com/ns.html?id=GTM-5S436JBQ"
-            height="0" 
-            width="0" 
-            style={{ display: 'none', visibility: 'hidden' }} 
-          />
-        </noscript>
+        
         {/* HEADER / NAVBAR GLOBAL */}
         <Navbar locale={locale || 'id'} />
         
