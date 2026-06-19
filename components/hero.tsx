@@ -105,8 +105,8 @@ export function Hero({ locale = "id" }: HeroProps) {
           alt="Hero Background" 
           fill 
           priority 
-          fetchPriority="high" // Tambahkan ini!
-          className="object-cover opacity-45" 
+          sizes="100vw" // Penting: Memberitahu browser bahwa gambar ini selebar layar penuh
+          className="object-cover opacity-45"
         />
       </div>
 
