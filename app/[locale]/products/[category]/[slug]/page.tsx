@@ -35,7 +35,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   const title = product.title[locale] || product.title['id'];
   const description = product.desc[locale] || product.desc['id'];
 
-  const WHATSAPP_NUMBER = "6281234567890";
+  const WHATSAPP_NUMBER = "6289699392924";
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Halo, saya tertarik dengan produk: ${title}`)}`;
   
   // Ambil label konversi yang sesuai dengan locale aktif

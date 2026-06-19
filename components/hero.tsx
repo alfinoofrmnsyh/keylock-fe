@@ -16,7 +16,7 @@ const heroData: Record<string, any> = {
     cta_text: "Minta Penawaran",
     hero_cta_link: "https://wa.me/6289699392924",
     cta_text2: "Konsultasi Penjualan (WA)",
-    hero_cta_link2: "https://wa.me/625173013525",
+    hero_cta_link2: "https://wa.me/085173013525",
     steps: [
       { id: 1, title: "Jual & Sewa <b>Forklift</b>", description: "Ketersediaan forklift <b>bergaransi</b>" },
       { id: 2, title: "Sistem <b>Racking Gudang</b>", description: "Kapasitas ruang <b>vertikal</b>" },
@@ -33,7 +33,7 @@ const heroData: Record<string, any> = {
     cta_text: "Request a Quote",
     hero_cta_link: "https://wa.me/6289699392924",
     cta_text2: "Sales Consultation (WA)",
-    hero_cta_link2: "https://wa.me/625173013525",
+    hero_cta_link2: "https://wa.me/085173013525",
     steps: [
       { id: 1, title: "<b>Forklift</b> Sales & Rental", description: "<b>Guaranteed</b> forklift availability" },
       { id: 2, title: "Warehouse <b>Racking</b>", description: "<b>Vertical</b> space capacity" },
