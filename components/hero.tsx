@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { ArrowRight, Phone, MessageSquare } from "lucide-react"
-import Image from "next/image" // 1. Impor komponen Image dari Next.js
+import Image from "next/image"
 
 interface HeroProps {
   locale?: string;
@@ -69,9 +69,16 @@ export function Hero({ locale = "id" }: HeroProps) {
 
   useEffect(() => {
     setMounted(true)
+    
+    // Optimasi Scroll: Hanya aktifkan parallax jika layar lebar (desktop)
     const handleScroll = () => {
-      setScrollY(window.scrollY)
+      window.requestAnimationFrame(() => {
+        if (window.innerWidth >= 1024) {
+          setScrollY(window.scrollY)
+        }
+      })
     }
+    
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
@@ -95,13 +102,13 @@ export function Hero({ locale = "id" }: HeroProps) {
           className="absolute inset-0 h-full w-full will-change-transform" 
           style={{ transform: `translateY(${scrollY * 0.35}px)` }}
         >
-          {/* Optimasi Video: Menambahkan preload="none" agar tidak membeku saat inisialisasi awal */}
           <video 
             autoPlay 
             loop 
             muted 
             playsInline 
-            preload="none"
+            preload="metadata"
+            poster="/images/hero-poster.png" 
             className="h-full w-full object-cover opacity-45" 
             src="/videos/hero.webm" 
           />
@@ -202,7 +209,6 @@ export function Hero({ locale = "id" }: HeroProps) {
             <h3 className="text-xl font-bold text-slate-900">WeChat</h3>
             <p className="mt-2 text-sm text-slate-500">Scan QR Code below to contact our sales team.</p>
             
-            {/* Optimasi Gambar: Mengubah img ke Next.js Image dengan kompresi otomatis */}
             <div className="mx-auto mt-5 relative w-64 h-64 border border-slate-200 rounded-lg overflow-hidden">
               <Image 
                 src="/images/wechat-qr.jpeg" 
