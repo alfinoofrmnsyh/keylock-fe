@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Truck, MapPin, Phone, Mail, MessageCircle, Globe, Send, Share2 } from "lucide-react"
+import Image from "next/image"
 
 const COMMON_CONFIG = {
   address: "Jl. Arteri KIIC Rolling Hills Ruko Pacifik Plaza No. 91, Margakaya, Kec. Telukjambe Barat, Karawang, Jawa Barat 41361",
@@ -135,7 +136,14 @@ export function Footer({ locale = "id" }: FooterProps) {
           {/* Komponen Profil Perusahaan */}
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-2 text-white">
-              <img src="/images/logo.png" alt="Key Lock ID" className="h-5.5 w-auto" />
+              <Image 
+                src="/images/logo.png" 
+                alt="Key Lock ID" 
+                width={120} 
+                height={30} 
+                priority // Mempercepat pemuatan logo
+                className="h-auto w-5.5 md:w-6.5"
+              />
               <span className="font-heading text-lg font-bold">
                 Keylock<span className="text-amber-400"> Indonesia</span>
               </span>
@@ -160,9 +168,9 @@ export function Footer({ locale = "id" }: FooterProps) {
           {/* Kolom Navigasi Dinamis Berdasarkan Bahasa */}
           {currentContent.navigation.map((col) => (
             <div key={col.title} className="lg:pl-6">
-              <h4 className="font-heading text-sm font-semibold uppercase tracking-wider text-white">
-                {col.title}
-              </h4>
+            <h2 className="font-heading text-sm font-semibold uppercase tracking-wider text-white">
+              {col.title}
+            </h2>
               <ul className="mt-4 space-y-2.5">
                 {col.links.map((link: any) => {
                   const isAnchor = link.url.startsWith("#")
@@ -185,9 +193,9 @@ export function Footer({ locale = "id" }: FooterProps) {
 
           {/* Informasi Kontak Perusahaan */}
           <div>
-            <h4 className="font-heading text-sm font-semibold uppercase tracking-wider text-white">
+            <h2 className="font-heading text-sm font-semibold uppercase tracking-wider text-white">
               {currentContent.contactTitle}
-            </h4>
+            </h2>
             <ul className="mt-4 space-y-3 text-sm text-slate-400">
               <li className="flex gap-2.5 text-justify">
                 <MapPin className="size-4 shrink-0 text-amber-400 mt-0.5" />
@@ -236,7 +244,7 @@ export function Footer({ locale = "id" }: FooterProps) {
       <div className="border-t border-white/5 py-6 bg-[#070e1a]">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 text-xs text-slate-500 sm:flex-row">
           <p>© {currentYear} {currentContent.copyright}</p>
-          <p className="text-slate-600 tracking-wide text-center sm:text-right font-medium">{currentContent.keywords}</p>
+          <p className="text-slate-300 tracking-wide text-center sm:text-right font-medium">{currentContent.keywords}</p>
         </div>
       </div>
     </footer>

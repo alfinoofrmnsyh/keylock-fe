@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { usePathname, useRouter } from "next/navigation"
 import Link from "next/link"
 import { Menu, X, Globe, ChevronDown } from "lucide-react"
+import Image from "next/image"
 
 const menuTranslations: Record<string, { home: string; about: string; services: string; products: string; coverage: string; faq: string; cta: string }> = {
   id: { home: "Beranda", about: "Tentang Kami", services: "Layanan", products: "Produk", coverage: "Cakupan", faq: "FAQ", cta: "Minta Penawaran" },
@@ -92,7 +93,14 @@ export function Navbar({ locale = "id" }: NavbarProps) {
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         
         <Link href={`/${locale}`} className={`flex items-center gap-2 ${logoTextStyles}`}>
-          <img src="/images/logo.png" alt="Key Lock ID" className="h-5.5 w-auto" />
+         <Image 
+            src="/images/logo.png" 
+            alt="Key Lock ID" 
+            width={120} 
+            height={30} 
+            priority // Mempercepat pemuatan logo
+            className="h-auto w-5.5 md:w-6.5"
+          />
           <span className="font-heading text-lg font-bold tracking-tight">
             Keylock<span className="text-amber-400"> Indonesia</span>
           </span>

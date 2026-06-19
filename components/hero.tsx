@@ -97,9 +97,22 @@ export function Hero({ locale = "id" }: HeroProps) {
 
   return (
     <section className="relative min-h-screen lg:h-screen w-full overflow-hidden bg-[#0c1a30] flex items-center pt-24 pb-12 lg:py-0" id="home">
+      
+      {/* 1. Mobile: Rendernya harus langsung (Tanpa {mounted &&}) agar LCP cepat */}
+      <div className="block lg:hidden absolute inset-0">
+        <Image 
+          src="/images/hero-poster.png" 
+          alt="Hero Background" 
+          fill 
+          priority 
+          className="object-cover opacity-45" 
+        />
+      </div>
+
+      {/* 2. Desktop: Video tetap di dalam {mounted &&} karena menggunakan logic parallax */}
       {mounted && (
         <div 
-          className="absolute inset-0 h-full w-full will-change-transform" 
+          className="hidden lg:block absolute inset-0 h-full w-full will-change-transform" 
           style={{ transform: `translateY(${scrollY * 0.35}px)` }}
         >
           <video 
@@ -114,6 +127,8 @@ export function Hero({ locale = "id" }: HeroProps) {
           />
         </div>
       )}
+
+      {/* --- Sisa kode Anda tetap sama di bawah sini --- */}
 
       <div className="absolute inset-0 z-10 pointer-events-none" style={{ backgroundImage: `linear-gradient(180deg, rgba(12, 26, 48, 0.9) 0%, rgba(12, 26, 48, 0.7) 60%, #0c1a30 100%)` }} />
 
