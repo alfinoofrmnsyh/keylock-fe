@@ -105,6 +105,7 @@ export function Hero({ locale = "id" }: HeroProps) {
           alt="Hero Background" 
           fill 
           priority 
+          fetchPriority="high" // Tambahkan ini!
           className="object-cover opacity-45" 
         />
       </div>
