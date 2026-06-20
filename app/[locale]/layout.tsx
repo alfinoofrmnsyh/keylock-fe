@@ -82,21 +82,27 @@ export default async function RootLayout({
       className={`${inter.variable} ${poppins.variable} ${montserrat.variable} ${geistMono.variable} bg-background`}
     >
       <head>
-        {/* 2. Google tag (gtag.js) - Di-load secara asinkron setelah halaman interaktif */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=AW-18247175856"
-          strategy="afterInteractive"
-        />
-        <Script id="google-ads-tag" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
+          {/* 1. Script Google Tag Manager (gtag.js) */}
+          <Script
+            src="https://www.googletagmanager.com/gtag/js?id=AW-18247175856"
+            strategy="afterInteractive"
+          />
 
-            gtag('config', 'AW-18247175856');
-          `}
-        </Script>
-      </head>
+          {/* 2. Inisialisasi Google Ads DAN Google Analytics */}
+          <Script id="google-tags" strategy="afterInteractive">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              // Google Ads
+              gtag('config', 'AW-18247175856');
+
+              // Google Analytics 4 (Ditambahkan di sini)
+              gtag('config', 'G-ES31SN8H9Q');
+            `}
+          </Script>
+        </head>
       <body className="font-sans antialiased text-slate-900 bg-white flex flex-col min-h-screen">
         
         {/* HEADER / NAVBAR GLOBAL */}
