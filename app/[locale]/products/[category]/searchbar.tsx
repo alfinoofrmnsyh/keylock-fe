@@ -9,7 +9,7 @@ export default function SearchBar() {
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
 
-  function handleSearch(term: string) {
+  const handleSearch = (term: string) => {
     const params = new URLSearchParams(searchParams);
     if (term) {
       params.set('search', term);
@@ -18,20 +18,21 @@ export default function SearchBar() {
     }
 
     startTransition(() => {
+      
       replace(`${pathname}?${params.toString()}`);
     });
-  }
+  };
 
   return (
-    <div className="mb-8 w-full max-w-md">
+    <div className="w-full md:w-80">
       <input
         type="text"
         placeholder="Cari produk..."
-        className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 transition-all"
+        className="w-full px-4 py-3 rounded-xl border-2 border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-white"
         defaultValue={searchParams.get('search')?.toString()}
         onChange={(e) => handleSearch(e.target.value)}
       />
-      {isPending && <span className="ml-2 text-sm text-slate-400 animate-pulse">Mencari...</span>}
+      {isPending && <span className="text-xs text-yellow-600 ml-1">Mencari...</span>}
     </div>
   );
 }
