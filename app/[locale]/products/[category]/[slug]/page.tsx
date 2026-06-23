@@ -50,7 +50,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         </Link>
 
         <div className="grid gap-12 lg:grid-cols-2 bg-white rounded-3xl p-10 border shadow-sm">
-          <div className="relative aspect-[5/3] w-full overflow-hidden rounded-2xl bg-slate-100">
+          <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl bg-slate-100">
             <Image 
               src={product.image_url || "/placeholder.png"} 
               alt={title} 
@@ -61,8 +61,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           </div>
 
           <div className="flex flex-col">
-            <h1 className="text-3xl font-extrabold text-slate-900">{title}</h1>
-            <div className="mt-8 border-t pt-6 text-slate-600 prose">
+            <h1 className="text-2xl font-extrabold text-slate-900">{title}</h1>
+            <div className="text-sm mt-3 border-t pt-6 text-slate-600 prose">
                <div dangerouslySetInnerHTML={{ __html: description }} />
             </div>
 
