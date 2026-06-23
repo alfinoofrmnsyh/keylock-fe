@@ -50,7 +50,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         </Link>
 
         <div className="grid gap-12 lg:grid-cols-2 bg-white rounded-3xl p-10 border shadow-sm">
-          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-slate-100">
+          <div className="relative aspect-[5/3] w-full overflow-hidden rounded-2xl bg-slate-100">
             <Image 
               src={product.image_url || "/placeholder.png"} 
               alt={title} 
