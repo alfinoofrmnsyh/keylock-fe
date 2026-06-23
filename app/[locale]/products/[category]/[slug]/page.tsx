@@ -62,7 +62,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
           <div className="flex flex-col">
             <h1 className="text-2xl font-extrabold text-slate-900">{title}</h1>
-            <div className="text-sm mt-3 border-t pt-6 text-slate-600 prose">
+            <div className="text-sm mt-5 border-t pt-6 text-slate-600 prose">
                <div dangerouslySetInnerHTML={{ __html: description }} />
             </div>
 
