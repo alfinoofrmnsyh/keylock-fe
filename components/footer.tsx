@@ -9,7 +9,7 @@ const COMMON_CONFIG = {
   address: "Jl. Arteri KIIC Rolling Hills Ruko Pacifik Plaza No. 91, Margakaya, Kec. Telukjambe Barat, Karawang, Jawa Barat 41361",
   phone: "+62 812 3456 7890",
   email: "info@keylockindonesia.com",
-  whatsapp_number: "6285173013525",
+  whatsapp_number: "089699393924",
   google_maps_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.3055732178386!2d107.264135374785!3d-6.354474862166041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e699d800f0c8e61%3A0x6bf0f30e04f4ef5e!2sPT%20KEY%20LOCK%20INDONESIA!5e0!3m2!1sid!2sid!4v1781268373774!5m2!1sid!2sid"
 }
 
@@ -100,7 +100,6 @@ const CONTENT_DICTIONARY: Record<string, { description: string; contactTitle: st
   }
 }
 
-// 1. KAMUS LABEL KONVERSI GOOGLE ADS UNTUK FOOTER (Disamakan dengan Label Hero WA)
 const FOOTER_GADS_LABELS: Record<string, string> = {
   id: "8m9jCPu8sEceLCd9_xD",
   en: "8m9jCPu8sEceLCd9_xD",
@@ -118,12 +117,15 @@ export function Footer({ locale = "id" }: FooterProps) {
   const currentContent = CONTENT_DICTIONARY[locale] || CONTENT_DICTIONARY["id"]
   const isAtHomepage = pathname === `/${locale}` || pathname === `/${locale}/`
 
-  // 2. FUNGSI UNTUK MENEMBAKKAN EVENT KONVERSI KE GOOGLE ADS
+  // FUNGSI BARU: Mengirim event ke GTM
   const trackGadsConversion = () => {
     const currentLabel = FOOTER_GADS_LABELS[locale] || FOOTER_GADS_LABELS.id;
-    if (typeof window !== "undefined" && (window as any).gtag) {
-      (window as any).gtag("event", "conversion", {
-        send_to: `AW-18247175856/${currentLabel}`,
+    if (typeof window !== "undefined") {
+      const win = window as any;
+      win.dataLayer = win.dataLayer || [];
+      win.dataLayer.push({
+        event: "footer_conversion_event", // Nama event untuk GTM
+        conversion_label: currentLabel,
       });
     }
   };
@@ -133,7 +135,6 @@ export function Footer({ locale = "id" }: FooterProps) {
       <div className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           
-          {/* Komponen Profil Perusahaan */}
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-2 text-white">
               <Image 
@@ -141,7 +142,7 @@ export function Footer({ locale = "id" }: FooterProps) {
                 alt="Key Lock ID" 
                 width={120} 
                 height={30} 
-                priority // Mempercepat pemuatan logo
+                priority 
                 className="h-auto w-5.5 md:w-6.5"
               />
               <span className="font-heading text-lg font-bold">
@@ -165,7 +166,6 @@ export function Footer({ locale = "id" }: FooterProps) {
             </div>
           </div>
 
-          {/* Kolom Navigasi Dinamis Berdasarkan Bahasa */}
           {currentContent.navigation.map((col) => (
             <div key={col.title} className="lg:pl-6">
             <h2 className="font-heading text-sm font-semibold uppercase tracking-wider text-white">
@@ -191,7 +191,6 @@ export function Footer({ locale = "id" }: FooterProps) {
             </div>
           ))}
 
-          {/* Informasi Kontak Perusahaan */}
           <div>
             <h2 className="font-heading text-sm font-semibold uppercase tracking-wider text-white">
               {currentContent.contactTitle}
@@ -212,7 +211,6 @@ export function Footer({ locale = "id" }: FooterProps) {
             </ul>
             
             <div className="mt-5">
-              {/* 3. MENAMBAHKAN ONCLICK DAN MEMPERBAIKI REL ATTRIBUTE */}
               <a
                 href={`https://wa.me/${COMMON_CONFIG.whatsapp_number}`}
                 target="_blank"
@@ -226,7 +224,6 @@ export function Footer({ locale = "id" }: FooterProps) {
           </div>
         </div>
 
-        {/* Peta Google Maps Tersemat */}
         {COMMON_CONFIG.google_maps_url && (
           <div className="mt-12 overflow-hidden rounded-2xl border border-white/10">
             <iframe
@@ -240,7 +237,6 @@ export function Footer({ locale = "id" }: FooterProps) {
         )}
       </div>
 
-      {/* Bar Hak Cipta & Hak Paten */}
       <div className="border-t border-white/5 py-6 bg-[#070e1a]">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 text-xs text-slate-500 sm:flex-row">
           <p>© {currentYear} {currentContent.copyright}</p>

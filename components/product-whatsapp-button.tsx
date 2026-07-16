@@ -10,11 +10,14 @@ interface ProductWhatsAppButtonProps {
 
 export function ProductWhatsAppButton({ whatsappUrl, locale, gadsLabel }: ProductWhatsAppButtonProps) {
   
-  // Fungsi pelacakan konversi Google Ads ketika tombol diklik
+  // Fungsi untuk mengirim event ke GTM (Agar konsisten dengan Hero & Footer)
   const trackGadsConversion = () => {
-    if (typeof window !== "undefined" && (window as any).gtag) {
-      (window as any).gtag("event", "conversion", {
-        send_to: `AW-18247175856/${gadsLabel}`,
+    if (typeof window !== "undefined") {
+      const win = window as any;
+      win.dataLayer = win.dataLayer || [];
+      win.dataLayer.push({
+        event: "product_conversion_event", 
+        conversion_label: gadsLabel,    
       });
     }
   };

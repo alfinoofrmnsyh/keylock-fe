@@ -70,7 +70,6 @@ export function Hero({ locale = "id" }: HeroProps) {
   useEffect(() => {
     setMounted(true)
     
-    // Optimasi Scroll: Hanya aktifkan parallax jika layar lebar (desktop)
     const handleScroll = () => {
       window.requestAnimationFrame(() => {
         if (window.innerWidth >= 1024) {
@@ -83,10 +82,16 @@ export function Hero({ locale = "id" }: HeroProps) {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  // Fungsi untuk mengirim event ke GTM
   const trackGadsConversion = (label: string) => {
-    if (typeof window !== "undefined" && (window as any).gtag) {
-      (window as any).gtag("event", "conversion", {
-        send_to: `AW-18247175856/${label}`,
+    if (typeof window !== "undefined") {
+      // Kita buat variabel sementara dengan casting (window as any)
+      const win = window as any;
+      
+      win.dataLayer = win.dataLayer || [];
+      win.dataLayer.push({
+        event: "hero_conversion_event",
+        conversion_label: label,
       });
     }
   }
@@ -98,19 +103,17 @@ export function Hero({ locale = "id" }: HeroProps) {
   return (
     <section className="relative min-h-screen lg:h-screen w-full overflow-hidden bg-[#0c1a30] flex items-center pt-24 pb-12 lg:py-0" id="home">
       
-      {/* 1. Mobile: Rendernya harus langsung (Tanpa {mounted &&}) agar LCP cepat */}
       <div className="block lg:hidden absolute inset-0">
         <Image 
           src="/images/hero-poster.png" 
           alt="Hero Background" 
           fill 
           priority 
-          sizes="100vw" // Penting: Memberitahu browser bahwa gambar ini selebar layar penuh
+          sizes="100vw"
           className="object-cover opacity-45"
         />
       </div>
 
-      {/* 2. Desktop: Video tetap di dalam {mounted &&} karena menggunakan logic parallax */}
       {mounted && (
         <div 
           className="hidden lg:block absolute inset-0 h-full w-full will-change-transform" 
@@ -128,8 +131,6 @@ export function Hero({ locale = "id" }: HeroProps) {
           />
         </div>
       )}
-
-      {/* --- Sisa kode Anda tetap sama di bawah sini --- */}
 
       <div className="absolute inset-0 z-10 pointer-events-none" style={{ backgroundImage: `linear-gradient(180deg, rgba(12, 26, 48, 0.9) 0%, rgba(12, 26, 48, 0.7) 60%, #0c1a30 100%)` }} />
 
