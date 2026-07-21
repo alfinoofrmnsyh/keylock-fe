@@ -86,7 +86,7 @@ export function About({ locale = "id" }: AboutProps) {
   const data = aboutContent[locale] || aboutContent["id"]
 
   return (
-    <section id="about" className="relative bg-background py-24">
+    <section id="about" className="relative bg-slate-50 py-24">
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           

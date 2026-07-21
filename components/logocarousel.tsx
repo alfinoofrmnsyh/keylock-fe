@@ -50,7 +50,7 @@ export function LogoCarousel({ locale = "id" }: LogoCarouselProps) {
   const title = LABELS[locale] || LABELS.id;
 
   return (
-    <div className="w-full overflow-hidden bg-white py-12">
+    <div className="w-full overflow-hidden bg-slate-50 py-12">
       <div className="mx-auto max-w-7xl px-6">
         <h3 className="mb-10 text-center text-xs font-bold uppercase tracking-[0.2em] text-slate-800">
           {title}

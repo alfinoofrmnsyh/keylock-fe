@@ -10,6 +10,7 @@ import { Testimonials } from "@/components/testimonials"
 import { Coverage } from "@/components/coverage"
 import { Faq } from "@/components/faq"
 import { FinalCta } from "@/components/final-cta"
+import { TrendingProductSection } from "@/components/trending-product-section"
 
 type PageProps = {
   params: any
@@ -24,11 +25,13 @@ export default async function Page({ params }: PageProps) {
     <main className="overflow-x-hidden">
       <Navbar locale={locale} />
       <Hero locale={locale} />
+      <ProductSection locale={locale} />
+      <TrendingProductSection locale={locale} />
       <About locale={locale} />
       <LogoCarousel locale={locale} />
       <Services locale={locale} />
       <WhyChooseUs locale={locale} />
-      <ProductSection locale={locale} />
+     
       <Process locale={locale} />
       <Testimonials locale={locale} />
       <Coverage locale={locale} />
