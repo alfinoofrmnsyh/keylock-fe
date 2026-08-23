@@ -6,6 +6,7 @@ import {LogoCarousel} from "@/components/logocarousel"
 import { WhyChooseUs } from "@/components/why-choose-us"
 import { ProductSection } from "@/components/product-section"
 import { Process } from "@/components/process"
+import { GallerySection } from "@/components/gallery"
 import { Testimonials } from "@/components/testimonials"
 import { Coverage } from "@/components/coverage"
 import { Faq } from "@/components/faq"
@@ -33,6 +34,7 @@ export default async function Page({ params }: PageProps) {
       <WhyChooseUs locale={locale} />
      
       <Process locale={locale} />
+      <GallerySection locale={locale} />
       <Testimonials locale={locale} />
       <Coverage locale={locale} />
       <Faq locale={locale} />

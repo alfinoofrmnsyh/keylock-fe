@@ -14,9 +14,7 @@ const heroData: Record<string, any> = {
     title: "Maksimalkan Kapasitas Ruang & Efisiensi Gudang Anda",
     subtitle: "Kami menyediakan unit Forklift (baru/bekas), Pallet Plastik, Industrial Tools, Truck Scale, dan Rak Gudang berkualitas. Solusi satu pintu untuk meningkatkan efisiensi operasional pabrik Anda.",
     cta_text: "Minta Penawaran",
-    hero_cta_link: "https://wa.me/6289699392924",
     cta_text2: "Konsultasi Penjualan (WA)",
-    hero_cta_link2: "https://wa.me/6285173013525",
     steps: [
       { id: 1, title: "Jual & Sewa <b>Forklift</b>", description: "Ketersediaan forklift <b>bergaransi</b>" },
       { id: 2, title: "Sistem <b>Racking Gudang</b>", description: "Kapasitas ruang <b>vertikal</b>" },
@@ -31,9 +29,7 @@ const heroData: Record<string, any> = {
     title: "Maximize Your Space Capacity & Warehouse Efficiency",
     subtitle: "We provide new & used Forklifts, Plastic Pallets, Industrial Tools, Truck Scales, and Storage Racks. A one-stop solution to maximize your factory's operational efficiency.",
     cta_text: "Request a Quote",
-    hero_cta_link: "https://wa.me/6289699392924",
     cta_text2: "Sales Consultation (WA)",
-    hero_cta_link2: "https://wa.me/6285173013525",
     steps: [
       { id: 1, title: "<b>Forklift</b> Sales & Rental", description: "<b>Guaranteed</b> forklift availability" },
       { id: 2, title: "Warehouse <b>Racking</b>", description: "<b>Vertical</b> space capacity" },
@@ -48,9 +44,7 @@ const heroData: Record<string, any> = {
     title: "最大化您的空间容量与仓库效率",
     subtitle: "我们提供优质叉车销售与租赁、仓库货架系统以及高品质塑料托盘的集成服务。旨在最大程度减少停机时间并优化您的物流流程。",
     cta_text: "索取报价",
-    hero_cta_link: "https://wa.me/6289699392924",
     cta_text2: "销售咨询 (微信)",
-    hero_cta_link2: "/images/wechat-qr.jpeg",
     steps: [
       { id: 1, title: "<b>叉车</b>销售与租赁", description: "<b>有保障的</b>叉车供应" },
       { id: 2, title: "<b>仓库货架</b>系统", description: "<b>垂直</b>空间容量" },
@@ -66,6 +60,13 @@ export function Hero({ locale = "id" }: HeroProps) {
   const [scrollY, setScrollY] = useState(0)
   const [mounted, setMounted] = useState(false)
   const [showWechatQR, setShowWechatQR] = useState(false)
+  
+  // State untuk menyimpan contact1, contact2, dan wechat_qr dari API Laravel
+  const [contactInfo, setContactInfo] = useState<{
+    contact1?: string;
+    contact2?: string;
+    wechat_qr?: string;
+  } | null>(null)
 
   useEffect(() => {
     setMounted(true)
@@ -82,12 +83,34 @@ export function Hero({ locale = "id" }: HeroProps) {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  // Mengambil data kontak secara dinamis berdasarkan locale
+  useEffect(() => {
+    const fetchContact = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/contact?locale=${locale}`,
+          {
+            cache: "no-store",
+          }
+        )
+        if (res.ok) {
+          const json = await res.json()
+          if (json.status === "success") {
+            setContactInfo(json.data)
+          }
+        }
+      } catch (error) {
+        console.error("Gagal memuat data kontak:", error)
+      }
+    }
+
+    fetchContact()
+  }, [locale])
+
   // Fungsi untuk mengirim event ke GTM
   const trackGadsConversion = (label: string) => {
     if (typeof window !== "undefined") {
-      // Kita buat variabel sementara dengan casting (window as any)
       const win = window as any;
-      
       win.dataLayer = win.dataLayer || [];
       win.dataLayer.push({
         event: "hero_conversion_event",
@@ -99,6 +122,18 @@ export function Hero({ locale = "id" }: HeroProps) {
   const data = heroData[locale] || heroData["id"]
   const isMandarin = locale?.startsWith("zh") ?? false
   const finalSteps = data.steps || []
+
+  // Menentukan nomor untuk Minta Penawaran (contact1) dan Konsultasi Penjualan (contact2)
+  const rawContact1 = contactInfo?.contact1 || "1234"
+  const rawContact2 = contactInfo?.contact2 || "6285173013525"
+
+  const cta1WhatsappLink = `https://wa.me/${rawContact1.replace(/[^0-9]/g, "")}`
+  const cta2WhatsappLink = `https://wa.me/${rawContact2.replace(/[^0-9]/g, "")}`
+
+  // Menentukan URL QR Code WeChat dari API (fallback ke gambar lokal jika kosong)
+  const wechatQrImageUrl = contactInfo?.wechat_qr 
+    ? (contactInfo.wechat_qr.startsWith("http") ? contactInfo.wechat_qr : `${process.env.NEXT_PUBLIC_API_URL}${contactInfo.wechat_qr}`)
+    : "/images/wechat-qr.jpeg"
 
   return (
     <section className="relative min-h-screen lg:h-screen w-full overflow-hidden bg-[#0c1a30] flex items-center pt-24 pb-12 lg:py-0" id="home">
@@ -161,7 +196,7 @@ export function Hero({ locale = "id" }: HeroProps) {
         <div className="mt-8 mb-12 flex flex-col gap-3 sm:flex-row w-full sm:w-auto justify-center px-4 sm:px-0">
           {data.cta_text && (
             <a 
-              href={data.hero_cta_link || "#contact"}
+              href={cta1WhatsappLink}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackGadsConversion(data.gads_label_cta1)} 
@@ -185,7 +220,7 @@ export function Hero({ locale = "id" }: HeroProps) {
               </button>
             ) : (
               <a
-                href={data.hero_cta_link2}
+                href={cta2WhatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackGadsConversion(data.gads_label_cta2)}
@@ -228,11 +263,12 @@ export function Hero({ locale = "id" }: HeroProps) {
             
             <div className="mx-auto mt-5 relative w-64 h-64 border border-slate-200 rounded-lg overflow-hidden">
               <Image 
-                src="/images/wechat-qr.jpeg" 
+                src={wechatQrImageUrl} 
                 alt="WeChat QR Code" 
                 fill
                 sizes="256px"
                 className="object-cover"
+                unoptimized
               />
             </div>
 
