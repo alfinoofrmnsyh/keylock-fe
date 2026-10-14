@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { ArrowRight, Phone, MessageSquare } from "lucide-react"
 import Image from "next/image"
+import { sanitizeHtml } from "@/lib/sanitize"
 
 interface HeroProps {
   locale?: string;
@@ -241,11 +242,11 @@ export function Hero({ locale = "id" }: HeroProps) {
               >
                 <p 
                   className="text-[12px] font-bold text-white uppercase tracking-wider leading-snug [&>b]:text-amber-400" 
-                  dangerouslySetInnerHTML={{ __html: item.title }} 
+                  dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.title) }} 
                 />
                 <p 
                   className="text-[11px] text-slate-400 mt-1 leading-normal [&>b]:text-amber-300" 
-                  dangerouslySetInnerHTML={{ __html: item.description }} 
+                  dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.description) }} 
                 />
               </div>
             ))}

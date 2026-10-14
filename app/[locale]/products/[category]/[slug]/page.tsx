@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ArrowLeft } from "lucide-react"
+import { sanitizeHtml } from "@/lib/sanitize"
 // 1. Import komponen tombol client yang baru dibuat
 import { ProductWhatsAppButton } from "@/components/product-whatsapp-button"
 
@@ -63,7 +64,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           <div className="flex flex-col">
             <h1 className="text-2xl font-extrabold text-slate-900">{title}</h1>
             <div className="text-sm mt-5 border-t pt-6 text-slate-600 prose">
-               <div dangerouslySetInnerHTML={{ __html: description }} />
+               <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(description) }} />
             </div>
 
             {/* 3. Render komponen tombol pelacak konversi di sini */}
