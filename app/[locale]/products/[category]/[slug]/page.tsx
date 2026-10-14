@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react"
 import { sanitizeHtml } from "@/lib/sanitize"
 // 1. Import komponen tombol client yang baru dibuat
 import { ProductWhatsAppButton } from "@/components/product-whatsapp-button"
+import { fetchContactData, buildWhatsAppUrl, DEFAULT_CONTACTS } from "@/lib/contact"
 
 async function getProductDetail(slug: string, locale: string) {
   const laravelBaseUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -36,8 +37,14 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   const title = product.title[locale] || product.title['id'];
   const description = product.desc[locale] || product.desc['id'];
 
-  const WHATSAPP_NUMBER = "6289699392924";
-  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Halo, saya tertarik dengan produk: ${title}`)}`;
+  const contactData = await fetchContactData(locale);
+  const contactNumber = contactData?.contact || contactData?.contact2 || contactData?.contact1 || DEFAULT_CONTACTS.contact2;
+  const inquiryMessage = locale === "en"
+    ? `Hello, I am interested in this product: ${title}`
+    : locale === "zh-Hans"
+    ? `您好，我对这款产品很感兴趣: ${title}`
+    : `Halo, saya tertarik dengan produk: ${title}`;
+  const whatsappUrl = buildWhatsAppUrl(contactNumber, inquiryMessage);
   
   // Ambil label konversi yang sesuai dengan locale aktif
   const currentGadsLabel = GADS_LABELS[locale] || GADS_LABELS.id;

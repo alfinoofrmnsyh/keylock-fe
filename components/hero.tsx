@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { ArrowRight, Phone, MessageSquare } from "lucide-react"
 import Image from "next/image"
 import { sanitizeHtml } from "@/lib/sanitize"
+import { useContact } from "@/hooks/useContact"
 
 interface HeroProps {
   locale?: string;
@@ -62,12 +63,8 @@ export function Hero({ locale = "id" }: HeroProps) {
   const [mounted, setMounted] = useState(false)
   const [showWechatQR, setShowWechatQR] = useState(false)
   
-  // State untuk menyimpan contact1, contact2, dan wechat_qr dari API Laravel
-  const [contactInfo, setContactInfo] = useState<{
-    contact1?: string;
-    contact2?: string;
-    wechat_qr?: string;
-  } | null>(null)
+  // Mengambil data kontak secara dinamis melalui custom hook terpusat
+  const { contact1, contact2, wechatQrImageUrl } = useContact(locale)
 
   useEffect(() => {
     setMounted(true)
@@ -83,30 +80,6 @@ export function Hero({ locale = "id" }: HeroProps) {
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
-
-  // Mengambil data kontak secara dinamis berdasarkan locale
-  useEffect(() => {
-    const fetchContact = async () => {
-      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/contact?locale=${locale}`,
-          {
-            cache: "no-store",
-          }
-        )
-        if (res.ok) {
-          const json = await res.json()
-          if (json.status === "success") {
-            setContactInfo(json.data)
-          }
-        }
-      } catch (error) {
-        console.error("Gagal memuat data kontak:", error)
-      }
-    }
-
-    fetchContact()
-  }, [locale])
 
   // Fungsi untuk mengirim event ke GTM
   const trackGadsConversion = (label: string) => {
@@ -124,17 +97,9 @@ export function Hero({ locale = "id" }: HeroProps) {
   const isMandarin = locale?.startsWith("zh") ?? false
   const finalSteps = data.steps || []
 
-  // Menentukan nomor untuk Minta Penawaran (contact1) dan Konsultasi Penjualan (contact2)
-  const rawContact1 = contactInfo?.contact1 || "1234"
-  const rawContact2 = contactInfo?.contact2 || "6285173013525"
-
-  const cta1WhatsappLink = `https://wa.me/${rawContact1.replace(/[^0-9]/g, "")}`
-  const cta2WhatsappLink = `https://wa.me/${rawContact2.replace(/[^0-9]/g, "")}`
-
-  // Menentukan URL QR Code WeChat dari API (fallback ke gambar lokal jika kosong)
-  const wechatQrImageUrl = contactInfo?.wechat_qr 
-    ? (contactInfo.wechat_qr.startsWith("http") ? contactInfo.wechat_qr : `${process.env.NEXT_PUBLIC_API_URL}${contactInfo.wechat_qr}`)
-    : "/images/wechat-qr.jpeg"
+  // Link WhatsApp dinamis untuk Minta Penawaran (contact1) dan Konsultasi Penjualan (contact2)
+  const cta1WhatsappLink = `https://wa.me/${contact1}`
+  const cta2WhatsappLink = `https://wa.me/${contact2}`
 
   return (
     <section className="relative min-h-screen lg:h-screen w-full overflow-hidden bg-[#0c1a30] flex items-center pt-24 pb-12 lg:py-0" id="home">

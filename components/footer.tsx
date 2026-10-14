@@ -4,12 +4,11 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Truck, MapPin, Phone, Mail, MessageCircle, Globe, Send, Share2 } from "lucide-react"
 import Image from "next/image"
+import { useContact } from "@/hooks/useContact"
 
 const COMMON_CONFIG = {
   address: "Jl. Arteri KIIC Rolling Hills Ruko Pacifik Plaza No. 91, Margakaya, Kec. Telukjambe Barat, Karawang, Jawa Barat 41361",
-  phone: "6289699392924",
   email: "info@keylockindonesia.com",
-  whatsapp_number: "6289699392924",
   google_maps_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.3055732178386!2d107.264135374785!3d-6.354474862166041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e699d800f0c8e61%3A0x6bf0f30e04f4ef5e!2sPT%20KEY%20LOCK%20INDONESIA!5e0!3m2!1sid!2sid!4v1781268373774!5m2!1sid!2sid"
 }
 
@@ -113,6 +112,7 @@ interface FooterProps {
 export function Footer({ locale = "id" }: FooterProps) {
   const currentYear = new Date().getFullYear()
   const pathname = usePathname()
+  const { footerPhone, footerPhoneDisplay, footerWhatsapp, getWhatsAppUrl } = useContact(locale)
 
   const currentContent = CONTENT_DICTIONARY[locale] || CONTENT_DICTIONARY["id"]
   const isAtHomepage = pathname === `/${locale}` || pathname === `/${locale}/`
@@ -202,7 +202,7 @@ export function Footer({ locale = "id" }: FooterProps) {
               </li>
               <li className="flex gap-2.5 items-center">
                 <Phone className="size-4 shrink-0 text-amber-400" />
-                <a href={`tel:${COMMON_CONFIG.phone}`} className="hover:text-white transition-colors">{COMMON_CONFIG.phone}</a>
+                <a href={`tel:${footerPhone}`} className="hover:text-white transition-colors">{footerPhoneDisplay}</a>
               </li>
               <li className="flex gap-2.5 items-center">
                 <Mail className="size-4 shrink-0 text-amber-400" />
@@ -212,7 +212,7 @@ export function Footer({ locale = "id" }: FooterProps) {
             
             <div className="mt-5">
               <a
-                href={`https://wa.me/${COMMON_CONFIG.whatsapp_number}`}
+                href={getWhatsAppUrl(footerWhatsapp)}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={trackGadsConversion}
