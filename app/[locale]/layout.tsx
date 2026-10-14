@@ -20,6 +20,7 @@ const montserrat = Montserrat({
 })
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
+  subsets: ['latin'],
 })
 
 // 2. Kamus Konten SEO Internasionalisasi (i18n)
