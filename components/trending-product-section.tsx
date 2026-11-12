@@ -36,6 +36,7 @@ const CONTENT_DICTIONARY: Record<
 
 interface ProductItem {
   slug: string
+  category_slug?: string
   title: string | Record<string, string>
   desc?: string | Record<string, string>
   image_url?: string
@@ -179,7 +180,9 @@ export function TrendingProductSection({
           className="flex gap-4 sm:gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 pt-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {products.map((product, i) => {
-            const targetHref = `/${locale}/products/${product.slug}`
+            const targetHref = product.category_slug
+              ? `/${locale}/products/${product.category_slug}/${product.slug}`
+              : `/${locale}/products/all/${product.slug}`
             const productName = getLocalizedText(product.title)
             const productDesc = getLocalizedText(product.desc)
 

@@ -42,12 +42,16 @@ export function buildWhatsAppUrl(phone?: string | null, message?: string): strin
  * Mengambil data kontak dari API Laravel backend.
  */
 export async function fetchContactData(locale: string = "id"): Promise<ContactInfo | null> {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL?.trim().replace(/\/+$/, "")
   if (!apiUrl) return null
 
   try {
-    const res = await fetch(`${apiUrl}/api/contact?locale=${locale}`, {
+    const res = await fetch(`${apiUrl}/api/contact?locale=${encodeURIComponent(locale)}`, {
       cache: "no-store",
+      signal: AbortSignal.timeout(4000),
+      headers: {
+        Accept: "application/json",
+      },
     })
     if (res.ok) {
       const json = await res.json()

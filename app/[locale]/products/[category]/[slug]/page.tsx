@@ -1,90 +1,65 @@
-import Image from "next/image"
-import Link from "next/link"
-import { notFound } from "next/navigation"
-import { ArrowLeft } from "lucide-react"
-import { sanitizeHtml } from "@/lib/sanitize"
-// 1. Import komponen tombol client yang baru dibuat
-import { ProductWhatsAppButton } from "@/components/product-whatsapp-button"
-import { fetchContactData, buildWhatsAppUrl, DEFAULT_CONTACTS } from "@/lib/contact"
+import { notFound } from "next/navigation";
+import { sanitizeHtml } from "@/lib/sanitize";
+import { fetchContactData, DEFAULT_CONTACTS } from "@/lib/contact";
+import { fetchApiJson, getLocalizedField } from "@/lib/api";
+import { ProductDetailClient, type ProductDetailData } from "./product-detail-client";
 
-async function getProductDetail(slug: string, locale: string) {
-  const laravelBaseUrl = process.env.NEXT_PUBLIC_API_URL;
-  const url = `${laravelBaseUrl}/api/products/${slug}?locale=${locale}`;
-  
-  try {
-    const res = await fetch(url, { cache: 'no-store' });
-    if (!res.ok) return null;
-    const response = await res.json();
-    return response.data || null;
-  } catch (error) {
-    return null;
-  }
+interface ProductDetailApiResponse {
+  status?: string;
+  data?: ProductDetailData | null;
 }
 
-// 2. Kamus Label Konversi Google Ads untuk masing-masing Bahasa
 const GADS_LABELS: Record<string, string> = {
   id: "8m9jCPu8sEceLCd9_xD",
   en: "8m9jCPu8sEceLCd9_xD",
   "zh-Hans": "8m9jCPu8sEceLCd9_xD",
-}
+};
 
-export default async function ProductDetailPage({ params }: { params: Promise<{ locale: string, category: string, slug: string }> }) {
+export default async function ProductDetailPage({
+  params,
+}: {
+  params: Promise<{ locale: string; category: string; slug: string }>;
+}) {
   const { locale, category, slug } = await params;
-  const product = await getProductDetail(slug, locale);
 
-  if (!product) return notFound();
+  const res = await fetchApiJson<ProductDetailApiResponse>(
+    `/api/products/${encodeURIComponent(slug)}?locale=${encodeURIComponent(locale)}`,
+    { timeoutMs: 3500 }
+  );
 
-  const title = product.title[locale] || product.title['id'];
-  const description = product.desc[locale] || product.desc['id'];
+  if (res.status === 404) {
+    return notFound();
+  }
 
-  const contactData = await fetchContactData(locale);
-  const contactNumber = contactData?.contact || contactData?.contact2 || contactData?.contact1 || DEFAULT_CONTACTS.contact2;
-  const inquiryMessage = locale === "en"
-    ? `Hello, I am interested in this product: ${title}`
-    : locale === "zh-Hans"
-    ? `您好，我对这款产品很感兴趣: ${title}`
-    : `Halo, saya tertarik dengan produk: ${title}`;
-  const whatsappUrl = buildWhatsAppUrl(contactNumber, inquiryMessage);
-  
-  // Ambil label konversi yang sesuai dengan locale aktif
+  let initialProduct: ProductDetailData | null = null;
+  let initialSanitizedDesc: string | undefined;
+  let initialContactNumber: string | null = null;
+
+  if (res.ok && res.data?.data) {
+    initialProduct = res.data.data;
+    const rawDesc = getLocalizedField(initialProduct.desc, locale);
+    initialSanitizedDesc = sanitizeHtml(rawDesc);
+
+    const contactData = await fetchContactData(locale);
+    initialContactNumber =
+      contactData?.contact || contactData?.contact2 || contactData?.contact1 || DEFAULT_CONTACTS.contact2;
+  } else if (res.ok && !res.data?.data) {
+    return notFound();
+  } else {
+    console.error(`[ProductDetailPage] Server fetch failed for slug="${slug}", locale="${locale}":`, res.error);
+  }
+
   const currentGadsLabel = GADS_LABELS[locale] || GADS_LABELS.id;
 
   return (
-    <main className="min-h-screen bg-slate-50 pt-32 pb-24">
-      <div className="mx-auto max-w-7xl px-6">
-        <Link href={`/${locale}/products/${category}`} className="inline-flex items-center gap-2 text-slate-500 hover:text-amber-600 mb-8">
-          <ArrowLeft className="size-4" />
-          {locale === "en" ? "Back" : locale === "zh-Hans" ? "返回" : "Kembali"}
-        </Link>
-
-        <div className="grid gap-12 lg:grid-cols-2 bg-white rounded-3xl p-10 border shadow-sm">
-          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-slate-100">
-            <Image 
-              src={product.image_url || "/placeholder.png"} 
-              alt={title} 
-              fill 
-              className="object-cover" 
-              unoptimized 
-            />
-          </div>
-
-          <div className="flex flex-col">
-            <h1 className="text-2xl font-extrabold text-slate-900">{title}</h1>
-            <div className="text-sm mt-5 border-t pt-6 text-slate-600 prose">
-               <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(description) }} />
-            </div>
-
-            {/* 3. Render komponen tombol pelacak konversi di sini */}
-            <div className="mt-auto pt-6 border-t">
-              <ProductWhatsAppButton 
-                whatsappUrl={whatsappUrl} 
-                locale={locale} 
-                gadsLabel={currentGadsLabel} 
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
-  )
+    <ProductDetailClient
+      locale={locale}
+      category={category}
+      slug={slug}
+      gadsLabel={currentGadsLabel}
+      initialProduct={initialProduct}
+      initialSanitizedDesc={initialSanitizedDesc}
+      initialContactNumber={initialContactNumber}
+    />
+  );
 }
